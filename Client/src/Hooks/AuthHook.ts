@@ -1,7 +1,7 @@
 // import { useQuery } from "@tanstack/react-query"
 
 import {registerUser} from "@/Services/AuthServices"
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery} from '@tanstack/react-query';
 // import { useRouter } from "next/navigation";
 
 // import { AuthTypes } from "@/types/AuthTypes";
@@ -11,7 +11,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 
 export const useRegister = () => {
-
   return useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
@@ -39,8 +38,7 @@ export const useRegister = () => {
 //     onSuccess: (data) => {
 //       router.push("/postCar");
 //     },
-//     onError: (error: any) => {
-     
+//     onError: (error: any) => {   
 //       alert(`Login error in AuthHooks: ${error.message}`);
 //     },
 //   });

@@ -5,6 +5,8 @@ import "./globals.css"
 import { ThemeProvider } from "@/app/(ui)/theme-provider"
 import { Header } from "@/app/(ui)/Header"
 import { Footer } from "@/app/(ui)/Footer"
+import QueryProvider from "@/app/Provider/Query-Provider";
+
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,7 +26,11 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="system" storageKey="kho-linear-theme">
           <div className="container mx-auto min-h-screen flex flex-col">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1">
+ <QueryProvider>
+              {children}
+              </QueryProvider>
+              </main>
             <Footer />
           </div>
         </ThemeProvider>

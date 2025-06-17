@@ -1,9 +1,9 @@
-import Image from "next/image";
+import HomePage from "@/app/(ui)/Home-page";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, iste praesentium sit provident odio quas excepturi hic temporibus labore eaque? Neque voluptas sed quibusdam praesentium quasi quae vero perferendis id?
+    <div className="py-20">
+      <HomePage />
     </div>
   );
 }

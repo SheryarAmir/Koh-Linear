@@ -83,7 +83,7 @@ export function Header() {
 
             {/* Register Button */}
             <Button asChild variant="ghost" size="sm">
-              <Link href="Register">Register</Link>
+              <Link href="/Register">Register</Link>
             </Button>
 
             {/* User Menu */}

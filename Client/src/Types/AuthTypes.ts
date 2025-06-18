@@ -1,6 +1,7 @@
 export type AuthTypes = {
  
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   confirmPassword: string;

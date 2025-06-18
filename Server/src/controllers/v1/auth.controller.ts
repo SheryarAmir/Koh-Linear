@@ -13,10 +13,9 @@ dotenv.config();
 
 export const Register = async (req: Request, res: Response): Promise<void> => {
   try {
-    // console.log(req.body);
+    console.log(req.body);
 
-    const userData = RegisterSchema.parse(req.body); // Zod will throw here if validation fails
-    // console.log(userData);
+    const userData = RegisterSchema.parse(req.body);
 
     const newUser = await authService.RegisterService(userData);
 
@@ -26,11 +25,12 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
     });
     
   } catch (error: any) {
-    // 🧪 Zod validation error
+
+    // Zod validation error
     if (error.name === "ZodError") {
       console.error("Zod validation failed:", error.errors);
       res.status(HttpStatus.BAD_REQUEST).json({
-        message: "Validation error",
+ message: "Validation error",
         issues: error.errors,
       });
 

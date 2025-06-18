@@ -1,45 +1,24 @@
-// import { useQuery } from "@tanstack/react-query"
-
-import {registerUser} from "@/Services/AuthServices"
-import { useMutation, useQuery} from '@tanstack/react-query';
-// import { useRouter } from "next/navigation";
-
-// import { AuthTypes } from "@/types/AuthTypes";
-
-
-
-
+// hooks/useRegister.ts
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "@/Services/AuthServices";
+import { AuthTypes } from "@/Types/AuthTypes";
 
 export const useRegister = () => {
-  return useMutation({
+  return useMutation<any, any, AuthTypes>({
     mutationFn: registerUser,
-    onSuccess: (data) => {
-      console.log(" User registered:", data);
 
+    onSuccess: (data) => {
     
+      alert(data.message); 
     },
-    onError: (error: any) => {
-      if (error.response?.data?.issues) {
-        
-        console.log("Zod validation errors:", error.response.data.issues);
-      } else {
-        console.log(" Signup failed:", error.message);
-      }
+
+    onError: (error) => {
+     
+      const backendMessage = error?.response?.data?.message || "An unexpected error occurred";
+      alert(backendMessage);
     },
   });
 };
 
 
-// export const useLogin = () => {
-//   const router = useRouter(); 
 
-//   return useMutation({
-//     mutationFn: loginUser,
-//     onSuccess: (data) => {
-//       router.push("/postCar");
-//     },
-//     onError: (error: any) => {   
-//       alert(`Login error in AuthHooks: ${error.message}`);
-//     },
-//   });
-// };

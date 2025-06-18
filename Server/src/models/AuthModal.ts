@@ -1,10 +1,16 @@
 import mongoose from "mongoose";
 
 const AuthSchema= new mongoose.Schema({
-fullname:{
+
+firstName:{
     type:String,
     require:true,
 } ,
+lastName:{
+    type:String,
+    require:true,
+} ,
+
 email:{
     type:String,
     require:true,

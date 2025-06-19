@@ -57,13 +57,14 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
 // this function handles user sign-in
 
 export async function SignIn(req: Request, res: Response): Promise<void> {
-
   try {
+    console.log("Incoming data:", req.body);
+
+    // Validate input using Zod
     const userData = SignInSchema.parse(req.body);
 
+    // Fetch user from DB
     const user = await SignInService(userData.email);
-
-    console.log("output of signin services ", user);
 
     if (!user) {
       res.status(404).json({ message: "User not found" });
@@ -71,53 +72,58 @@ export async function SignIn(req: Request, res: Response): Promise<void> {
     }
 
     if (!user.password) {
-      res.status(500).json({ message: "User password not found" });
+      res.status(500).json({ message: "User password missing in DB" });
       return;
     }
 
 
-    const isMatch = await bcrypt.compare(userData.password, user.password);
-
-    console.log(`password incoming  ${userData.password} and password in database ${user.password}`);
-    if (!isMatch) {
+    if (user.password !== userData.password) {
       res.status(401).json({ message: "Incorrect password" });
       return;
     }
 
-    // const secret = process.env.JWT_SECRET;
-    // if (!secret) {
-    //   res.status(500).json({ message: "JWT secret not set" });
-    //   return;
-    // }
+    console.log(`${user.password} ${userData.password}`); 
+    
 
-    // const token = JWT.sign(
-    //   { email: user.email, id: user._id },
-    //   secret,
-    //   { expiresIn: "1h" }
-    // );
+ // Generate JWT token
+    const secret = process.env.JWT_SECRET;
+    console.log({secret})
+    
+    if (!secret) {
+      res
+        .status(500).json({ message: "JWT secret not found in environment variables" });
+      return;
+    }
 
-    // res
-    //   .cookie("accessToken", token, {
-    //     httpOnly: true,
-    //     secure: process.env.NODE_ENV === "production",
-    //     sameSite: "lax",
-    //     maxAge: 24 * 60 * 60 * 1000, // 1 day
-    //   })
+    const accessToken = JWT.sign({ email: user.email, id:user._id }, secret, {
+      expiresIn: "1h",
+    });
 
+    // Respond with success message and token
+    // console.log(accessToken)
+ res.cookie("accessToken", accessToken,{
+  httpOnly: true,
+    secure: false, // true in production
+    sameSite: "lax",
+    maxAge: 24 * 60 * 60 * 1000,
+  }).status(200) .json({ message: "Login successful", ExistUser:user });
+   
 
-      res.status(200)
-      .json({ message: "Login successful", userData });
-
-
-  
 
   } catch (error) {
     if (error instanceof ZodError) {
       res.status(400).json({ message: "Validation failed", errors: error.errors });
-      return;
+    } 
+    
+    
+    else {
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Something went wrong" });
     }
-
-    console.error("Login error:", error);
-    res.status(500).json({ message: "Something went wrong" });
   }
 }
+
+
+
+
+ 

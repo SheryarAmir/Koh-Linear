@@ -38,12 +38,19 @@ if (!result.success) {
 } // Returning null errors to indicate success
 }
 
+
 const correctData = result.data;   // If validation succeeds, we prepare the data for submission
 
+
+
   mutate(correctData); // useMutation call
+  console.log("correctData", correctData);
   return { errors: null }; 
 }
+
 const[fromState, fromAction] = useActionState(handlerSignIn, {errors: null}); 
+
+
 
   return (
     <div className="py-16 lg:grid lg:grid-cols-2">
@@ -77,8 +84,21 @@ const[fromState, fromAction] = useActionState(handlerSignIn, {errors: null});
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email address</Label>
-                <Input id="email" type="email" placeholder="Enter your email" className="h-11" defaultValue={fromState.enterValues?.email} />
+                <Input id="email" type="email" name="email" placeholder="Enter your email" className="h-11" defaultValue={fromState.enterValues?.email} />
               </div>
+
+
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Password</Label>
+                  <Link href="/forgot-password" className="text-sm text-primary hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
+                <Input id="password" type="password" name="password" placeholder="Enter your password"  className="h-11" />
+              </div>
+            </div>
 
 
  {fromState.errors && <ul> 
@@ -88,16 +108,6 @@ const[fromState, fromAction] = useActionState(handlerSignIn, {errors: null});
                 </li>
               ))}
               </ul>}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
-                  <Link href="/forgot-password" className="text-sm text-primary hover:underline">
-                    Forgot password?
-                  </Link>
-                </div>
-                <Input id="password" type="password" placeholder="Enter your password"  className="h-11" />
-              </div>
-            </div>
 
             <Button type="submit" className="w-full h-11 text-base">
               Sign in

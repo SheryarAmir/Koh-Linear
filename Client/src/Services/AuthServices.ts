@@ -14,9 +14,9 @@ export const registerUser = async (user: AuthTypes) => {
 
 export const signInUser = async (user: SignInTypes) => {
 
-  const res = await api.post("/v1/auth/signin", user);
+  const res = await api.post("/v1/auth/SignIn", user);
 
-  // console.log(res.data);
+  console.log(res.data);
 
   return res.data;
 };

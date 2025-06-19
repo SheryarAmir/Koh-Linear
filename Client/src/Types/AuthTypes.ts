@@ -7,3 +7,9 @@ export type AuthTypes = {
   confirmPassword: string;
   
 };
+
+
+export type SignInTypes = {
+  email: string;  
+  password: string;
+};

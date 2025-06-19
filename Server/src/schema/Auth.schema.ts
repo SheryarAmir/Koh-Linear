@@ -14,7 +14,7 @@ export const RegisterSchema = z.object({
 });
     
 
-// export const SignInSchema=z.object({
-//   email:z.string().email({message : "Invalid email fromat"}),
-// password: z.string().min(6,{message :"password must be 6 characters"})
-// })
+  export const SignInSchema=z.object({
+    email:z.string().email({message : "Invalid email fromat"}),
+  password: z.string().min(6,{message :"password must be 6 characters"})
+  })

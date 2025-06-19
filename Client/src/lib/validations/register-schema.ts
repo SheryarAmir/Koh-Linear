@@ -13,3 +13,13 @@ export const RegisterSchema = z .object({
     path: ["confirmPassword"],
   });
 
+
+
+  export const sigInSchema=z.object({
+email :z.string().email("Email must be a valid email address"),
+password: z.string().min(6, "Password must be at least 6 characters"),
+
+  })
+
+
+  

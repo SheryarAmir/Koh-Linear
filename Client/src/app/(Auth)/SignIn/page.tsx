@@ -1,11 +1,50 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
+import { useActionState } from "react"
+import { SignInTypes } from "@/Types/AuthTypes"
+import { sigInSchema } from "@/lib/validations/register-schema"
+import {SignIn} from "@/Hooks/AuthHook"
 
 export default function LoginPage() {
+
+    const { mutate, isPending } = SignIn(); 
+     
+function handlerSignIn(prevState: any,  formData: FormData) {
+
+  const sigin :SignInTypes={
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+  }
+
+
+
+const result = sigInSchema.safeParse(sigin);  
+
+if (!result.success) { 
+
+  const fieldErrors = result.error.flatten().fieldErrors;   
+  const errors = Object.values(fieldErrors).flat();
+
+  return {
+    errors,  
+    enterValues: sigin,  
+
+} // Returning null errors to indicate success
+}
+
+const correctData = result.data;   // If validation succeeds, we prepare the data for submission
+
+  mutate(correctData); // useMutation call
+  return { errors: null }; 
+}
+const[fromState, fromAction] = useActionState(handlerSignIn, {errors: null}); 
+
   return (
     <div className="py-16 lg:grid lg:grid-cols-2">
       {/* Left Side - Image */}
@@ -34,13 +73,21 @@ export default function LoginPage() {
           </div>
 
           {/* Form */}
-          <form className="space-y-6">
+          <form action={fromAction} className="space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email address</Label>
-                <Input id="email" type="email" placeholder="Enter your email" required className="h-11" />
+                <Input id="email" type="email" placeholder="Enter your email" className="h-11" defaultValue={fromState.enterValues?.email} />
               </div>
 
+
+ {fromState.errors && <ul> 
+              {fromState.errors.map((error: string, index: number) => (
+                <li key={index} className="text-red-600 text-sm">
+                  {error}
+                </li>
+              ))}
+              </ul>}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
@@ -48,7 +95,7 @@ export default function LoginPage() {
                     Forgot password?
                   </Link>
                 </div>
-                <Input id="password" type="password" placeholder="Enter your password" required className="h-11" />
+                <Input id="password" type="password" placeholder="Enter your password"  className="h-11" />
               </div>
             </div>
 

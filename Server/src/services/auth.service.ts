@@ -9,3 +9,8 @@ export const RegisterService = async (userData: UserSignupInput) => {
 
 };
 
+
+
+export const SignInService = async (email: string ) => {
+  return await Auth.findOne({ email  }); // returns a single user
+};

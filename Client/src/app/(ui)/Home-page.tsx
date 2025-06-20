@@ -1,5 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
+import { Header } from "./Header"
+import { Footer } from "./Footer"
 
 export default function HomePage() {
   const features = [
@@ -34,9 +36,9 @@ export default function HomePage() {
   ]
 
   return (
-    <div className="flex flex-col bg-background">
+    <div className="flex flex-col bg-background container mx-auto">
       <main className="flex-1">
-        {/* Hero Section */}
+        <Header></Header>
         <div className="container mx-auto px-4 py-26">
           <div className="text-center space-y-6">
             <div className="flex items-center justify-center mb-8">
@@ -117,6 +119,8 @@ export default function HomePage() {
           </div>
         </div>
       </main>
-    </div>
+
+      <Footer/>
+         </div>
   )
 }

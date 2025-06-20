@@ -53,7 +53,7 @@ const[fromState, fromAction] = useActionState(handlerSignIn, {errors: null});
 
 
   return (
-    <div className="py-16 lg:grid lg:grid-cols-2">
+    <div className="py-16 lg:grid lg:grid-cols-2 container mx-auto">
       {/* Left Side - Image */}
       <div className="hidden lg:block relative">
         <Image

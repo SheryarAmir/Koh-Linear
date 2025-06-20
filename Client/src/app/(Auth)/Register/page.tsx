@@ -50,7 +50,7 @@ const validData = result.data;   // If validation succeeds, we prepare the data 
 
 const [fromState, fromAction] = useActionState(handleRegisterForm , {errors:null}); // Using useActionState to manage form state and handle submission 
   return (
-    <div className="lg:grid lg:grid-cols-2 py-16">
+    <div className="lg:grid lg:grid-cols-2 py-16 container mx-auto">
       {/* Left Image Section */}
       <div className="hidden lg:block relative">
         <Image

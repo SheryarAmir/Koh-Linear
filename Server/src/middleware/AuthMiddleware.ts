@@ -1,6 +1,6 @@
-// middleware/authMiddleware.ts
+
 import { Request, Response, NextFunction } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { HttpStatus } from '../utils/httpStatus';
 
 interface user {email:string,id:string}

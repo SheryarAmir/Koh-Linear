@@ -3,8 +3,8 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/app/(ui)/theme-provider"
-import { Header } from "@/app/(ui)/Header"
-import { Footer } from "@/app/(ui)/Footer"
+
+
 import QueryProvider from "@/app/Provider/Query-Provider";
 
 
@@ -24,14 +24,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
         <ThemeProvider defaultTheme="system" storageKey="kho-linear-theme">
-          <div className="container mx-auto min-h-screen flex flex-col">
-            <Header />
+          <div className=" min-h-screen flex flex-col">
+          
             <main className="flex-1">
  <QueryProvider>
               {children}
               </QueryProvider>
               </main>
-            <Footer />
+     
           </div>
         </ThemeProvider>
       </body>

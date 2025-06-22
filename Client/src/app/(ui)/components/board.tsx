@@ -2,7 +2,9 @@ import React from 'react'
 
 const board = () => {
   return (
-    <div>board</div>
+    <div>
+      
+    </div>
   )
 }
 

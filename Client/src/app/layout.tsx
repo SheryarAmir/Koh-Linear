@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/app/(ui)/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 
 
 import QueryProvider from "@/app/Provider/Query-Provider";
@@ -29,6 +30,7 @@ export default function RootLayout({
             <main className="flex-1">
  <QueryProvider>
               {children}
+                 <Toaster />
               </QueryProvider>
               </main>
      

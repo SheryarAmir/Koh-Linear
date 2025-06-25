@@ -1,36 +1,19 @@
-
-
 import mongoose from "mongoose";
 
-const  Tickets= new mongoose.Schema({
+const TicketsSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    assignee: { type: String, required: true },
+    priority: {
+      type: String,
+      enum: ["Low", "Medium", "High"], // restrict to allowed values
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-Title:{
-    type:String,
-    require:true,
-} ,
-Description:{
-    type:String,
-    require:true,
-} ,
+const Ticket = mongoose.model("Ticket", TicketsSchema);
 
-Assignee:{
-    type:String,
-    require:true,
-   
-
-},
-
-Priority:{
-     type:String,
-    require:true,
-   
-}
-
-
-})
-
-const Ticket =mongoose.model("Tickets", Tickets)
-
-export default  Ticket;
-
-
+export default Ticket;

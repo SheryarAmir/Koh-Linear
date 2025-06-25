@@ -1,9 +1,6 @@
-
-
 export interface TicketTypes {
-  Title: string;
-  Description: string;
-  Assignee: string;
-  Prority : string
- 
+  title: string;
+  description: string;
+  assignee: string;
+  priority: "Low" | "Medium" | "High";
 }

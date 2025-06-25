@@ -1,19 +1,67 @@
-import { NextFunction, Request, Response } from "express";
-import Ticket from "../../models/TicketsModal";
-export const AddTicket=async (
-  request: Request,
-  response: Response,
-  next: NextFunction
-) => {
+import { Request, Response } from "express";
+import { AddNewTicketSchema } from "../../schema/Ticket.Schema";
+import { AddNewTicketService,GetAllTicketsService } from "../../services/Ticket.Services";
+import { ZodError } from "zod";
+
+export const AddTicket = async (req: Request, res: Response): Promise<void> => {
+  try {
+    
+
+    const InComingData=req.body
+    // console.log(InComingData)
+     const TicketData = AddNewTicketSchema.parse(InComingData);
+
+    //  console.log(TicketData);
+
+    const newTicket = await AddNewTicketService(TicketData);
+     console.log(TicketData);
+
+    res.status(201).json({
+      message: "Ticket created successfully",
+      newTicket,
+    });
 
 
-  const data= request.body
+  } catch (error) {
 
 
-const newTicket = await Ticket.create(data);
+    if (error instanceof ZodError) {
+      res.status(400).json({
+        message: "Validation failed",
+        errors: error.errors,
+      });
+      return;
+    }
 
-console.log(data)
-
- response.json({ message: "server is healthy" , newTicket });
-
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
 };
+
+
+
+
+
+
+export const GetTicket = async (req: Request, res: Response) => {
+  try {
+    const tickets = await GetAllTicketsService(); // Fetch from DB
+
+
+    // console.log(tickets)
+
+    res.status(200).json({
+      
+      message: "Tickets fetched successfully",
+      tickets,
+    });
+  } catch (error) {
+    console.error("Error fetching tickets:", error);
+    res.status(500).json({
+      message: "Something went wrong while fetching tickets",
+    });
+  }
+};
+
+

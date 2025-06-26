@@ -2,37 +2,22 @@ export type TicketPayload = {
   title: string;
   description: string;
   assignee: string;
+  status: "Todo" | "In Progress" | "Review" | "Backlog" | "Done";
   priority: "Low" | "Medium" | "High";
 };
 
+export type Ticket = {
+  _id: string;
+  title: string;
+  description: string;
+  assignee: string;
+   status:string;
+  priority: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
-
-export type getTicketTypes = {
-  id: string
-  title: string
-  description: string
-  assignee: string
-  priority: "Low" | "Medium" | "High"
-//   createdAt: string
-//   updatedAt: string
-//   status: "todo" | "progress" | "review" | "done" | "cancel"
-}
-
-
-export type TicketStatus = "todo" | "progress" | "review" | "done" | "cancel"
-
-export interface Ticket {
-  _id: string
-  title: string
-  description: string
-  status: TicketStatus
-  priority?: string
-  assignee?: string
-  createdAt: Date | string
-}
-
-export interface KanbanColumn {
-  id: TicketStatus
-  title: string
-  color: string
-}
+export type GetTicketsResponse = {
+  message: string;
+  tickets: Ticket[];
+};

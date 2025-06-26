@@ -8,30 +8,21 @@ import { useCreateTicket } from "@/Hooks/useCreateTicket"
 import { ticketSchema } from "@/lib/validations/ticketSchema"
 import { useState } from "react"
 
-
-
-
-
-
 export default function CreateTicketPage() {
-
-   const router = useRouter();
+  const router = useRouter();
 
   const { mutate, isPending, isSuccess, isError, error } = useCreateTicket()
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     assignee: "",
-    priority: "Low",
+    priority: "Low", // Set default value
+    status: "Todo", // Fixed: changed from Status to status and set default
   })
 
-
-function addNewTicket(){
-
-  router.push("/dashboard")
-}
-
-
+  function addNewTicket(){
+    // router.push("/dashboard")
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -44,10 +35,12 @@ function addNewTicket(){
     const parsed = ticketSchema.safeParse(formData)
 
     if (!parsed.success) {
-      alert("Validation failed")
+      console.error("Validation errors:", parsed.error.errors)
+      alert("Validation failed: " + parsed.error.errors.map(err => err.message).join(", "))
       return
     }
-    console.log(formData)
+    console.log("Form data being sent:", formData)
+    // console.log("Parsed data:", parsed.data)
     mutate(parsed.data)
   }
 
@@ -110,18 +103,40 @@ function addNewTicket(){
                 />
               </div>
 
-              {/* Priority Field */}
+              {/* Status Field - FIXED */}
+              <div className="space-y-2">
+                <label htmlFor="status" className="block text-sm font-semibold text-slate-700">
+                  Status <span className="text-red-500">*</span>
+                </label>
+                <select
+                  id="status"
+                  name="status" // ✅ matches form state key
+                  value={formData.status} // ✅ now correctly references formData.status
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-colors duration-200 text-slate-900 bg-white"
+                >
+                  <option value="">Select Status</option>
+                  <option value="Todo">🟢 Todo</option>
+                  <option value="In Progress">🟡 In Progress</option>
+                  <option value="Review">🔴 Review</option>
+                  <option value="Backlog">🔴 Backlog</option>
+                  <option value="Done">✅ Done</option>
+                </select>
+              </div>
+
+              {/* Priority Field - FIXED */}
               <div className="space-y-2">
                 <label htmlFor="priority" className="block text-sm font-semibold text-slate-700">
                   Priority <span className="text-red-500">*</span>
                 </label>
                 <select
                   id="priority"
-                  name="priority"
-                  value={formData.priority}
+                  name="priority" // ✅ matches form state key
+                  value={formData.priority} // ✅ now correctly references formData.priority
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-colors duration-200 text-slate-900 bg-white"
                 >
+                  <option value="">Select Priority</option>
                   <option value="Low" className="text-green-600">
                     🟢 Low
                   </option>
@@ -151,6 +166,14 @@ function addNewTicket(){
                     "Create Ticket"
                   )}
                 </button>
+              </div>
+
+              {/* Debug Info - Remove this in production */}
+              <div className="bg-gray-100 p-4 rounded-lg">
+                <h3 className="font-semibold text-gray-700 mb-2">Form Data (Debug):</h3>
+                <pre className="text-xs text-gray-600">
+                  {JSON.stringify(formData, null, 2)}
+                </pre>
               </div>
 
               {/* Status Messages */}

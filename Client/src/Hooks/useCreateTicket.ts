@@ -2,8 +2,9 @@
 
 
 import { useMutation ,useQuery  } from "@tanstack/react-query";
-import { createTicket ,getTickets} from "@/Services/ticketServices";
-import {TicketPayload } from "@/Types/TicketTypes"
+import { createTicket ,getTickets, deleteTicket} from "@/Services/ticketServices";
+import {TicketPayload ,Ticket } from "@/Types/TicketTypes"
+import { useQueryClient } from "@tanstack/react-query"
 
 export const useCreateTicket = () => {
 
@@ -21,13 +22,23 @@ export const useCreateTicket = () => {
 
 
 
+export const useGetAllTickets = () => {
+  return useQuery<Ticket[]>({
+    queryKey: ["Tickets"],
+    queryFn: getTickets,
+    enabled: true, // Only fetch on refetch()
+  })
+}
 
-// export const useTickets = () => {
-//   return useQuery({
-//     queryKey: ["tickets"],
-//     queryFn: getTickets,
-//     onError: () => {
-//       alert("Something went WRONG");
-//     },
-//   });
-// };
+
+export const useDeleteTicket = () => {
+  
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => deleteTicket(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["Tickets"] }) // Refetch tickets
+    },
+  })
+}

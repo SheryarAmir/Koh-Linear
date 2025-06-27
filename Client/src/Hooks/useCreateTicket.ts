@@ -2,7 +2,7 @@
 
 
 import { useMutation ,useQuery  } from "@tanstack/react-query";
-import { createTicket ,getTickets, deleteTicket} from "@/Services/ticketServices";
+import { createTicket ,getTickets, deleteTicket,UpDateTickets} from "@/Services/ticketServices";
 import {TicketPayload ,Ticket } from "@/Types/TicketTypes"
 import { useQueryClient } from "@tanstack/react-query"
 
@@ -42,3 +42,18 @@ export const useDeleteTicket = () => {
     },
   })
 }
+
+
+export const useUpdateTicketStatus = () => {
+   const queryClient = useQueryClient()
+ return useMutation({
+    mutationFn: ({ id, status }: { id: string; status: string }) =>UpDateTickets(id, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["Tickets"] }) // Refetch tickets
+    },
+  })
+}
+
+
+
+

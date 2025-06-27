@@ -20,3 +20,11 @@ export const GetAllTicketsService = async () => {
 
 
 };
+
+
+export const DeleteTicketService = async(id:string)=>{
+
+const DeleteTicketId=await Ticket.findByIdAndDelete(id)
+
+return DeleteTicketId
+}

@@ -19,8 +19,6 @@ export const createTicket = async (data: TicketPayload) => {
 };
 
 
-
-
 export const getTickets=async()=>{
   const res=await api.get("/v1/ticket/getTicket")
 
@@ -41,3 +39,15 @@ export const deleteTicket = async (id: string) => {
 
   return res.data.message 
 }
+
+
+export const UpDateTickets= async(id:string , status:string)=>{
+
+  console.log(id, status)
+  
+  const res=await api.put(`/v1/ticket/UpDateTicket/${id}`, {status})
+
+  console.log(res.data)
+
+  return res.data
+}   

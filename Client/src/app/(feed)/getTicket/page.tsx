@@ -2,7 +2,9 @@
 
 import React from "react"
 import { Ticket } from "@/Types/TicketTypes"
-import { useGetAllTickets, useDeleteTicket } from "@/Hooks/useCreateTicket"
+import { useGetAllTickets, useDeleteTicket,useUpdateTicketStatus } from "@/Hooks/useCreateTicket"
+import StatusPage from "../status/page"
+import { ticketSchema } from "@/lib/validations/ticketSchema"
 
 const Page = () => {
   const {
@@ -14,10 +16,18 @@ const Page = () => {
   } = useGetAllTickets()
 
   const { mutate: deleteTicket, isPending: isDeleting } = useDeleteTicket()
+  const {mutate:UpDateTicket, isPending:isUpDateing } =useUpdateTicketStatus()
 
   function handleDelete(id: string) {
     if (confirm("Are you sure you want to delete this ticket?")) {
       deleteTicket(id)
+    }
+  }
+
+
+  function handleUpdate (id:string, status:string){
+     if (confirm("Are you sure you want to update this ticket?")) {
+      UpDateTicket({id , status})
     }
   }
 
@@ -37,6 +47,7 @@ const Page = () => {
         <ul className="space-y-2">
           {data.map((ticket: Ticket) => (
             <li key={ticket._id} className="border p-3 rounded shadow space-y-1">
+
               <h2 className="font-semibold">{ticket.title}</h2>
               {ticket.description && <p>{ticket.description}</p>}
               <p><strong>Priority:</strong> {ticket.priority}</p>
@@ -50,9 +61,25 @@ const Page = () => {
                 onClick={() => handleDelete(ticket._id)}
                 className="mt-2 bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
                 disabled={isDeleting}
+
+
               >
                 {isDeleting ? "Deleting..." : "Delete"}
               </button>
+
+
+<button onClick={()=>handleUpdate(ticket._id , ticket.status)}
+             className="mt-2 bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+             disabled={isUpDateing}
+  >
+
+{isUpDateing ? "updating..." : "update Status"}
+
+
+</button>
+
+<StatusPage id={ticket._id}/>
+
             </li>
           ))}
         </ul>

@@ -10,6 +10,12 @@ const TicketsSchema = new mongoose.Schema(
       enum: ["Low", "Medium", "High"], // restrict to allowed values
       required: true,
     },
+
+    status: {
+      type: String,
+      enum: ["Todo", "In Progress" , "Review" , "Backlog" , "Done"], // restrict to allowed values
+      required: true,
+    },
   },
   { timestamps: true }
 );

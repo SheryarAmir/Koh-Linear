@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AddNewTicketSchema } from "../../schema/Ticket.Schema";
-import { AddNewTicketService,GetAllTicketsService } from "../../services/Ticket.Services";
+import { AddNewTicketService,GetAllTicketsService,DeleteTicketService } from "../../services/Ticket.Services";
 import { ZodError } from "zod";
 
 export const AddTicket = async (req: Request, res: Response): Promise<void> => {
@@ -65,3 +65,43 @@ export const GetTicket = async (req: Request, res: Response) => {
 };
 
 
+export const DeleteTicketcontroller = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params 
+
+    const deletedTicket = await DeleteTicketService(id)
+
+    if (!deletedTicket) {
+      res.status(404).json({ message: "Ticket not found" })
+    }
+
+    console.log("Deleted:", deletedTicket)
+
+    res.status(200).json({
+      message: "Ticket deleted successfully",
+      deletedTicket,
+      
+    })
+  } catch (error) {
+    console.error("Delete error:", error)
+     res.status(500).json({ message: "Server error", error })
+  }
+}
+
+
+export const UpDateTicketcontroller = async (req:Request ,res:Response)=>{
+
+  try{
+    const {id}=req.params
+
+    const {status} =req.body
+
+    console.log(id ,status)
+
+    res.json({mesage:"backend got the status and id "})
+
+  }catch(error){
+
+    console.log(`there is an error on get the status and id ${error}`)
+  }
+}

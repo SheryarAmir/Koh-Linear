@@ -23,7 +23,7 @@ export function Header() {
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <div className="h-6 w-6 rounded bg-primary" />
-            <span className="hidden font-bold tracking-tight sm:inline-block">Kho-Linear</span>
+            <span className="hidden font-bold tracking-tight sm:inline-block">Koh-Linear</span>
           </Link>
         </div>
 

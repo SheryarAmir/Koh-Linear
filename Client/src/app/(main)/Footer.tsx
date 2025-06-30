@@ -2,12 +2,12 @@ import Link from "next/link"
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <footer className="border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 container mx-auto mt-18">
       <div className="flex flex-col items-center justify-between gap-4 py-6 px-4 md:h-16 md:flex-row md:py-0">
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-2">
           <div className="flex items-center space-x-2">
             <div className="h-4 w-4 rounded bg-primary" />
-            <span className="font-bold tracking-tight">Kho-Linear</span>
+            <span className="font-bold tracking-tight">Koh-Linear</span>
           </div>
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
             Built with precision and care for modern workflows.

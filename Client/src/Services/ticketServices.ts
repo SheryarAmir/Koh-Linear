@@ -41,13 +41,18 @@ export const deleteTicket = async (id: string) => {
 }
 
 
-export const UpDateTickets= async(id:string , status:string)=>{
 
-  console.log(id, status)
-  
-  const res=await api.put(`/v1/ticket/UpDateTicket/${id}`, {status})
 
-  console.log(res.data)
+export const updateTicketStatus = async (id: string, status: string) => {
+  try {
+    console.log("Updating Ticket:", id, status)
 
-  return res.data
-}   
+    const res = await api.patch(`/v1/ticket/Updatetickets/${id}`, { status })
+
+    console.log("Updated Ticket Response:", res.data)
+    return res.data
+  } catch (error) {
+    console.error("Error updating ticket:", error)
+    throw error
+  }
+}

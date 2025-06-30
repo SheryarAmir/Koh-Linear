@@ -21,7 +21,10 @@ export default function CreateTicketPage() {
   })
 
   function addNewTicket(){
-    // router.push("/dashboard")
+    router.push("/dashboard")
+  }
+  function handlerShowAllTickets (){
+     router.push("/getTicket")
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -119,7 +122,7 @@ export default function CreateTicketPage() {
                   <option value="Todo">🟢 Todo</option>
                   <option value="In Progress">🟡 In Progress</option>
                   <option value="Review">🔴 Review</option>
-                  <option value="Backlog">🔴 Backlog</option>
+
                   <option value="Done">✅ Done</option>
                 </select>
               </div>
@@ -166,15 +169,11 @@ export default function CreateTicketPage() {
                     "Create Ticket"
                   )}
                 </button>
+
+                <button className="w-full mt-8 bg-gradient-to-r from-yellow-900 to-green-700 hover:from-slate-800 hover:to-slate-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-[1.02] focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg" onClick={handlerShowAllTickets}>show all Tickets</button>
               </div>
 
-              {/* Debug Info - Remove this in production */}
-              <div className="bg-gray-100 p-4 rounded-lg">
-                <h3 className="font-semibold text-gray-700 mb-2">Form Data (Debug):</h3>
-                <pre className="text-xs text-gray-600">
-                  {JSON.stringify(formData, null, 2)}
-                </pre>
-              </div>
+             
 
               {/* Status Messages */}
               {isSuccess && (

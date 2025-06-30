@@ -17,7 +17,7 @@ export function Header() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-3">
       <div className="flex h-14 items-center px-4">
         {/* Logo/Brand */}
         <div className="mr-4 hidden md:flex">
@@ -57,9 +57,9 @@ export function Header() {
           <div className="w-full flex-1 md:w-auto md:flex-none">{/* Search could go here if needed */}</div>
           <nav className="flex items-center gap-2">
             {/* Theme Toggle Dropdown */}
-            <DropdownMenu>
+            <DropdownMenu >
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-8 w-8 px-0">
+                <Button variant="secondary" size="sm" className="h-8 w-8 px-0">
                   <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                   <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                   <span className="sr-only">Toggle theme</span>
@@ -82,8 +82,11 @@ export function Header() {
             </DropdownMenu>
 
             {/* Register Button */}
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/Register">Register</Link>
+            <Button asChild variant="secondary" size="sm">
+              <Link href="/Register">sign up</Link>
+            </Button>
+             <Button asChild variant="secondary" size="sm">
+              <Link href="/SignIn">sign In</Link>
             </Button>
 
             {/* User Menu */}

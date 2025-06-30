@@ -8,7 +8,9 @@ const ticketsRouter = Router();
 ticketsRouter.post("/CreateTicket", ticketscontroller.AddTicket );
 ticketsRouter.get("/getTicket", ticketscontroller.GetTicket );
 ticketsRouter.delete("/DeleteTicket/:id", ticketscontroller.DeleteTicketcontroller);
-ticketsRouter.put("/UpDateTicket/:id", ticketscontroller.UpDateTicketcontroller);
+ticketsRouter.patch("/Updatetickets/:id", ticketscontroller.UpDateTicketController);
+
+
 
 
 export default ticketsRouter;

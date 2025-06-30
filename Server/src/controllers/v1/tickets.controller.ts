@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AddNewTicketSchema } from "../../schema/Ticket.Schema";
-import { AddNewTicketService,GetAllTicketsService,DeleteTicketService } from "../../services/Ticket.Services";
+import { AddNewTicketService,GetAllTicketsService,DeleteTicketService,UpDateTicketService } from "../../services/Ticket.Services";
 import { ZodError } from "zod";
 
 export const AddTicket = async (req: Request, res: Response): Promise<void> => {
@@ -89,19 +89,31 @@ export const DeleteTicketcontroller = async (req: Request, res: Response) => {
 }
 
 
-export const UpDateTicketcontroller = async (req:Request ,res:Response)=>{
 
-  try{
-    const {id}=req.params
 
-    const {status} =req.body
+export const UpDateTicketController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
 
-    console.log(id ,status)
+    if (!id || !status) {
+  res.status(400).json({ message: "Ticket ID and new status are required." });
+    }
 
-    res.json({mesage:"backend got the status and id "})
+    const updatedTicket = await UpDateTicketService(id, status);
 
-  }catch(error){
+    if (!updatedTicket) {
+     res.status(404).json({ message: "Ticket not found." });
+    }
 
-    console.log(`there is an error on get the status and id ${error}`)
+    console.log(`🎯 Drag-and-drop update: Ticket ID = ${id}, New Status = ${status}`);
+
+    res.status(200).json({
+      message: "Backend received the ID and status successfully.",
+      ticket: updatedTicket,
+    });
+  } catch (error) {
+    console.error(`❌ Error updating ticket status:`, error);
+    res.status(500).json({ message: "Internal server error." });
   }
-}
+};

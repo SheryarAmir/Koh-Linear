@@ -28,3 +28,14 @@ const DeleteTicketId=await Ticket.findByIdAndDelete(id)
 
 return DeleteTicketId
 }
+
+
+export const UpDateTicketService = async (id: string, status: string) => {
+  const updatedTicket = await Ticket.findByIdAndUpdate(
+    id,
+    { status }, // ✅ update object
+    { new: true } // ✅ optional: returns the updated document
+  )
+
+  return updatedTicket
+}

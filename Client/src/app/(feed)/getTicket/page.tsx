@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import { Ticket } from "@/Types/TicketTypes"
 import { useGetAllTickets, useDeleteTicket, useUpdateTicketStatus } from "@/Hooks/useCreateTicket"
 import { useRouter } from "next/navigation"
+import { Header } from "@/app/(main)/Header"
 
 // Define the possible ticket statuses - match your backend exactly
 const TICKET_STATUSES = ['To Do', 'In Progress', 'Review', 'Done'] as const
@@ -246,6 +247,10 @@ const KanbanBoard: React.FC = () => {
   function handlerCreateTicket(){
     router.push ("/newTicket")
   }
+
+  function handlerHome(){
+    router.push("/")
+  }
   // Debug: Log the fetched tickets
   console.log('Fetched tickets:', tickets)
   console.log('Current tickets (optimistic):', currentTickets)
@@ -420,15 +425,18 @@ const KanbanBoard: React.FC = () => {
   }
 
   return (
+
+ 
     <div 
-      className="p-6 bg-gray-100 min-h-screen"
+      className="mt- p-8 min-h-screen "
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
+     
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Koh-Linear</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta cupiditate ipsa necessitatibus nostrum voluptates voluptatum laborum nemo. A, doloremque possimus!</p>
+          <h1 className="text-3xl font-bold">Koh-Linear</h1>
+        <p>Track progress from generation to completion with our organized workflow system.</p>
         </div>
         
         <div className="flex gap-3">
@@ -449,6 +457,17 @@ const KanbanBoard: React.FC = () => {
           >
           Create Ticket
           </button>
+
+          <button 
+
+          onClick={handlerHome}
+           
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg blue:bg-green-700 transition-colors shadow-sm"
+            
+          >
+          Back
+          </button>
+
 
         </div>
       </div>
@@ -503,6 +522,7 @@ const KanbanBoard: React.FC = () => {
         </div>
       </div>
     </div>
+    
   )
 }
 

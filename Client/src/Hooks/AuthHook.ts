@@ -5,16 +5,18 @@ import { useRouter } from "next/navigation";
 
 
 
+
  
 export const useRegister = () => {
 
-
+ const router = useRouter()
   return useMutation({
     mutationFn: registerUser,
 
     onSuccess: (data) => {
     
       alert(data.message); 
+      router.push("/SignIn")
 
     },
 
@@ -36,7 +38,7 @@ export const SignIn = () => {
 
     onSuccess: (data) => {
       alert(data.message); 
-      router.push("/"); // Redirect to dashboard on success
+      router.push("/newTicket");
     },
 
     onError: (error:any) => {

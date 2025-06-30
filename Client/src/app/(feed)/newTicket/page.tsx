@@ -24,7 +24,7 @@ export default function CreateTicketPage() {
     router.push("/dashboard")
   }
   function handlerShowAllTickets (){
-     router.push("/getTicket")
+     router.push("/dashboard")
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {

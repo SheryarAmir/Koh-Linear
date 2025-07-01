@@ -1,6 +1,6 @@
 export const TICKET_STATUSES = ["To Do", "In Progress", "Review", "Done"] as const;
 
-export type TicketStatus = (typeof TICKET_STATUSES)[number]; // ✅ export type here
+export type TicketStatus = (typeof TICKET_STATUSES)[number];
 
 export const STATUS_MAPPING: Record<string, TicketStatus> = {
   "to do": "To Do",

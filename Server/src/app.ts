@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import Api1 from "./routes/v1/global.router";
 import { corsOptions } from "./config/cors.config";
 import cookieParser from "cookie-parser";
+import "../src/Types/index";
 
 // import deserializeUser from "./middleware/deserializeUser";
 dotenv.config();

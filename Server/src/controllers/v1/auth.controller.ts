@@ -95,7 +95,7 @@ export async function SignIn(req: Request, res: Response): Promise<void> {
       return;
     }
 
-    const accessToken = JWT.sign({ email: user.email, id:user._id }, secret, {
+    const accessToken = JWT.sign({ email: user.email, id:user.password}, secret, {
       expiresIn: "1h",
     });
 

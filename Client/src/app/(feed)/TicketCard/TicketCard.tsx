@@ -7,6 +7,7 @@ interface Props {
   onDelete: (id: string) => void;
   isDeleting: boolean;
   isDragging: boolean;
+  onClick: () => void;
 }
 
 const TicketCard: React.FC<Props> = ({
@@ -14,27 +15,35 @@ const TicketCard: React.FC<Props> = ({
   onDelete,
   isDeleting,
   isDragging,
+  onClick,
 }) => {
   return (
     <div
-      className={`bg-white p-4 border-l-4 rounded shadow hover:shadow-md cursor-move transition-all ${getPriorityColor(ticket.priority)} ${isDragging ? "opacity-50" : ""}`}
+      className={`bg-white p-4 rounded shadow-sm border-l-4 cursor-pointer transition-transform ${
+        getPriorityColor(ticket.priority)
+      } ${isDragging ? "opacity-50 scale-105" : "hover:scale-[1.02]"}`}
       draggable
-      onDragStart={e => e.dataTransfer.setData("text/plain", ticket._id)}
+      onDragStart={(e) => e.dataTransfer.setData("text/plain", ticket._id)}
+      onDragEnd={() => {}}
+      onClick={onClick}
     >
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="font-semibold text-sm text-gray-800">{ticket.title}</h3>
+      <div className="flex justify-between items-start">
+        <h3 className="font-semibold text-sm">{ticket.title}</h3>
         <button
-          onClick={() => onDelete(ticket._id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(ticket._id);
+          }}
           disabled={isDeleting}
-          className="text-red-400 hover:text-red-600"
+          className="text-red-500 hover:text-red-700"
         >
           ×
         </button>
       </div>
-      <p className="text-xs text-gray-600 line-clamp-3">{ticket.description}</p>
-      <div className="mt-2 flex justify-between text-xs text-gray-500">
-        <span>{ticket.priority}</span>
-        <span>{ticket.assignee}</span>
+      <p className="text-xs text-gray-600 mt-1 line-clamp-3">{ticket.description}</p>
+      <div className="flex justify-between items-center mt-3 text-xs">
+        <span className="font-medium">{ticket.priority}</span>
+        <span className="text-gray-500">{ticket.assignee}</span>
       </div>
     </div>
   );

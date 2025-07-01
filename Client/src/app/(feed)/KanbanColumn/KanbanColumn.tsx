@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Ticket } from "@/Types/TicketTypes";
 import TicketCard from "../TicketCard/TicketCard";
-import { getPriorityColor, getStatusColor, TicketStatus } from "../StatusColors/StatusColors";
+import { getStatusColor, TicketStatus } from "../StatusColors/StatusColors";
 
 interface Props {
   title: TicketStatus;
@@ -11,6 +11,7 @@ interface Props {
   isDeleting: boolean;
   isUpdating: boolean;
   draggedTicket: string | null;
+  onTicketClick: (ticket: Ticket) => void;
 }
 
 const KanbanColumn: React.FC<Props> = ({
@@ -19,8 +20,8 @@ const KanbanColumn: React.FC<Props> = ({
   onDrop,
   onDelete,
   isDeleting,
-  isUpdating,
   draggedTicket,
+  onTicketClick,
 }) => {
   const [isDragOver, setIsDragOver] = useState(false);
 
@@ -43,22 +44,22 @@ const KanbanColumn: React.FC<Props> = ({
       style={{ minHeight: 500 }}
     >
       <div className="flex justify-between items-center mb-3">
-        <h2 className="text-lg font-semibold text-black">{title}</h2>
-        <span className="text-sm bg-gray-100  text-black px-2 py-1 rounded">{tickets.length}</span>
+        <h2 className="text-lg font-semibold">{title}</h2>
+        <span className="text-sm bg-gray-100 px-2 py-1 rounded">{tickets.length}</span>
       </div>
 
       <div className="space-y-3">
-        {tickets.length > 0 ? (
-          tickets.map((ticket) => (
-            <TicketCard
-              key={ticket._id}
-              ticket={ticket}
-              isDragging={draggedTicket === ticket._id}
-              onDelete={onDelete}
-              isDeleting={isDeleting}
-            />
-          ))
-        ) : (
+        {tickets.map((ticket) => (
+          <TicketCard
+            key={ticket._id}
+            ticket={ticket}
+            isDragging={draggedTicket === ticket._id}
+            onDelete={onDelete}
+            isDeleting={isDeleting}
+            onClick={() => onTicketClick(ticket)}
+          />
+        ))}
+        {tickets.length === 0 && (
           <div className="text-center text-gray-400 py-12 border-2 border-dashed border-gray-300 rounded">
             <p>📋 No tickets</p>
           </div>

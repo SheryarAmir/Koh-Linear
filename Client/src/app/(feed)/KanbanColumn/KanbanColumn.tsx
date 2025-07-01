@@ -43,8 +43,8 @@ const KanbanColumn: React.FC<Props> = ({
       style={{ minHeight: 500 }}
     >
       <div className="flex justify-between items-center mb-3">
-        <h2 className="text-lg font-semibold">{title}</h2>
-        <span className="text-sm bg-gray-100 px-2 py-1 rounded">{tickets.length}</span>
+        <h2 className="text-lg font-semibold text-black">{title}</h2>
+        <span className="text-sm bg-gray-100  text-black px-2 py-1 rounded">{tickets.length}</span>
       </div>
 
       <div className="space-y-3">

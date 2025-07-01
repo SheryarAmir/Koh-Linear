@@ -73,8 +73,9 @@ const KanbanBoard: React.FC = () => {
 
   return (
     <div onDragStart={() => handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center my-10">
         <h1 className="text-3xl font-bold">Koh-Linear</h1>
+      
         <div className="space-x-3">
           <button onClick={() => refetch()} className="bg-blue-600 text-white px-4 py-2 rounded">
             Refresh

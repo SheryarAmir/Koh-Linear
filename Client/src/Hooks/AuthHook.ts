@@ -1,6 +1,5 @@
-
 import { useMutation } from "@tanstack/react-query";
-import { registerUser ,signInUser } from "@/Services/AuthServices"
+import { registerUser ,signInUser, logoutUser } from "@/Services/AuthServices"
 import { useRouter } from "next/navigation";  
 
 
@@ -43,6 +42,24 @@ export const SignIn = () => {
 
     onError: (error:any) => {
      
+      const backendMessage = error?.response?.data?.message || "An unexpected error occurred";
+      alert(backendMessage);
+    },
+  });
+};
+
+export const useLogout = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: logoutUser,
+    onSuccess: (data) => {
+      localStorage.clear();
+      sessionStorage.clear();
+      router.push("/SignIn");
+      window.location.reload();
+    },
+    onError: (error: any) => {
       const backendMessage = error?.response?.data?.message || "An unexpected error occurred";
       alert(backendMessage);
     },

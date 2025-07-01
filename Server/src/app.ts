@@ -1,4 +1,3 @@
-
 import cors from "cors";
 import express, { Express } from "express";
 import dotenv from "dotenv";
@@ -9,14 +8,21 @@ import cookieParser from "cookie-parser";
 
 // import deserializeUser from "./middleware/deserializeUser";
 dotenv.config();
+
 const app: Express = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(cors(corsOptions));
 
-
 app.use(cookieParser());
 // app.use(deserializeUser);
-
 
 app.use("/v1", Api1);
 

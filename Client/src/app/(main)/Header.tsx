@@ -12,9 +12,17 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Moon, Sun, User, Settings, LogOut, Menu, Monitor } from "lucide-react"
 import { useTheme } from "./theme-provider"
+import { useRouter } from "next/navigation"
+import { useLogout } from "@/Hooks/AuthHook"
 
 export function Header() {
   const { theme, setTheme } = useTheme()
+  const router = useRouter()
+  const { mutate: logout } = useLogout()
+
+  const handleLogout = () => {
+    logout()
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-3">
@@ -121,7 +129,7 @@ export function Header() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-red-600 focus:text-red-600 dark:text-red-400">
-                  <LogOut className="mr-2 h-4 w-4" />
+                  <LogOut onClick={handleLogout} className="mr-2 h-4 w-4" />
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>

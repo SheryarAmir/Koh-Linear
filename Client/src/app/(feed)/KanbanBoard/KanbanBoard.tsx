@@ -1,45 +1,47 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { TICKET_STATUSES, STATUS_MAPPING } from "../StatusColors/StatusColors";
+import { Ticket } from "@/Types/TicketTypes";
 import { useGetAllTickets, useDeleteTicket, useUpdateTicketStatus } from "@/Hooks/useCreateTicket";
 import KanbanColumn from "../KanbanColumn/KanbanColumn";
-import { Ticket } from "@/Types/TicketTypes";
+import TicketModal from "../popup/TicketModal";
+import { TICKET_STATUSES, STATUS_MAPPING, TicketStatus } from "../StatusColors/StatusColors";
 
-const KanbanBoard: React.FC = () => {
+const KanbanBoard = () => {
+  const router = useRouter();
   const [draggedTicket, setDraggedTicket] = useState<string | null>(null);
   const [optimisticTickets, setOptimisticTickets] = useState<Ticket[]>([]);
-  const { data: tickets = [], isPending, isError, error, refetch } = useGetAllTickets();
+  const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { data: tickets = [], isPending, isError, refetch, error } = useGetAllTickets();
   const { mutate: deleteTicket, isPending: isDeleting } = useDeleteTicket();
   const { mutate: updateTicket, isPending: isUpdating } = useUpdateTicketStatus();
-  const router = useRouter();
+
+  useEffect(() => {
+    if (tickets.length > 0) setOptimisticTickets(tickets);
+  }, [tickets]);
 
   const currentTickets = optimisticTickets.length > 0 ? optimisticTickets : tickets;
 
-  useEffect(() => {
-    if (tickets.length > 0) {
-      setOptimisticTickets(tickets);
-    }
-  }, [tickets]);
-
   const groupedTickets = TICKET_STATUSES.reduce((acc, status) => {
-    acc[status] = currentTickets.filter(ticket => {
-      const normalized = STATUS_MAPPING[ticket.status?.toLowerCase() || ""];
-      return ticket.status === status || normalized === status;
+    acc[status] = currentTickets.filter((ticket) => {
+      const mappedStatus = STATUS_MAPPING[ticket.status?.toLowerCase() || ""];
+      return mappedStatus === status || ticket.status === status;
     });
     return acc;
-  }, {} as Record<(typeof TICKET_STATUSES)[number], Ticket[]>);
+  }, {} as Record<TicketStatus, Ticket[]>);
 
-  const handleDrop = (ticketId: string, newStatus: (typeof TICKET_STATUSES)[number]) => {
-    const ticket = currentTickets.find(t => t._id === ticketId);
+  const handleDrop = (ticketId: string, newStatus: TicketStatus) => {
+    const ticket = currentTickets.find((t) => t._id === ticketId);
     if (!ticket || ticket.status === newStatus) return;
 
-    const updatedTickets = currentTickets.map(t =>
+    const updatedTickets = currentTickets.map((t) =>
       t._id === ticketId ? { ...t, status: newStatus, updatedAt: new Date().toISOString() } : t
     );
-
     setOptimisticTickets(updatedTickets);
+
     updateTicket(
       { id: ticketId, status: newStatus },
       {
@@ -50,9 +52,8 @@ const KanbanBoard: React.FC = () => {
   };
 
   const handleDelete = (id: string) => {
-    if (!confirm("Are you sure you want to delete this ticket?")) return;
-
-    const updatedTickets = currentTickets.filter(t => t._id !== id);
+    if (!confirm("Are you sure?")) return;
+    const updatedTickets = currentTickets.filter((t) => t._id !== id);
     setOptimisticTickets(updatedTickets);
     deleteTicket(id, {
       onSuccess: () => refetch(),
@@ -60,39 +61,31 @@ const KanbanBoard: React.FC = () => {
     });
   };
 
-  const handleDragStart = (ticketId: string) => setDraggedTicket(ticketId);
-  const handleDragEnd = () => setDraggedTicket(null);
+  const handleTicketClick = (ticket: Ticket) => {
+    setSelectedTicket(ticket);
+    setIsModalOpen(true);
+  };
 
-  if (isPending) return <div className="text-center py-10">Loading tickets...</div>;
-  if (isError) return (
-    <div className="text-center py-10 text-red-600">
-      Error loading tickets: {error?.message}
-      <button onClick={() => refetch()} className="ml-4 underline">Retry</button>
-    </div>
-  );
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedTicket(null);
+  };
 
   return (
-    <div onDragStart={() => handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="flex justify-between items-center my-10">
-        <h1 className="text-3xl font-bold">Koh-Linear</h1>
-      
-        <div className="space-x-3">
-          <button onClick={() => refetch()} className="bg-blue-600 text-white px-4 py-2 rounded">
-            Refresh
-          </button>
-          <button onClick={() => router.push("/newTicket")} className="bg-green-600 text-white px-4 py-2 rounded">
-            Create Ticket
-          </button>
-          <button onClick={() => router.push("/")} className="bg-gray-600 text-white px-4 py-2 rounded">
-            Logout
-          </button>
+    <div className="p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Koh-Linear</h1>
+        <div className="flex gap-2">
+          <button onClick={() => refetch()} className="btn p-2 bg-amber-300 rounded-xl border text-white">Refresh</button>
+          <button onClick={() => router.push("/newTicket")} className="btn bg-green-600 p-2 rounded-xl border text-white">Create Ticket</button>
+          <button onClick={() => router.push("/")} className="btn bg-blue-600 p-2 rounded-xl border text-white">Logout</button>
         </div>
       </div>
 
-      {isUpdating && <p className="text-sm text-blue-700 mb-3">Updating ticket status...</p>}
+      {isUpdating && <p className="text-blue-500 mb-2">Updating ticket status...</p>}
 
-      <div className="flex gap-4 overflow-x-auto pb-4">
-        {TICKET_STATUSES.map(status => (
+      <div className="flex gap-4 overflow-x-auto">
+        {TICKET_STATUSES.map((status) => (
           <KanbanColumn
             key={status}
             title={status}
@@ -102,9 +95,12 @@ const KanbanBoard: React.FC = () => {
             isDeleting={isDeleting}
             isUpdating={isUpdating}
             draggedTicket={draggedTicket}
+            onTicketClick={handleTicketClick}
           />
         ))}
       </div>
+
+      <TicketModal open={isModalOpen} onClose={handleCloseModal} ticket={selectedTicket} />
     </div>
   );
 };

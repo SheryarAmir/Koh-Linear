@@ -90,8 +90,7 @@ export async function SignIn(req: Request, res: Response): Promise<void> {
         .json({ message: "JWT secret not found in environment variables" });
       return;
     }
-
-    const accessToken = JWT.sign({ email: user.email, id: user._id }, secret, {
+    const accessToken = JWT.sign({ email: user.email, id:user.password}, secret, {
       expiresIn: "1h",
     });
 

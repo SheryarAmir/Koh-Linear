@@ -12,7 +12,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Moon, Sun, User, Settings, LogOut, Menu, Monitor, Loader2 } from "lucide-react"
 import { useTheme } from "./theme-provider"
-import { useLogout } from "@/Hooks/AuthHook"
+import { useLogout } from "@/hooks/AuthHook"
 
 export function Header() {
   const { theme, setTheme } = useTheme()

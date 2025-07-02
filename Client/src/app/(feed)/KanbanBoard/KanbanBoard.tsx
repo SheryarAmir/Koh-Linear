@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Ticket } from "@/Types/TicketTypes";
-import { useGetAllTickets, useDeleteTicket, useUpdateTicketStatus } from "@/Hooks/useCreateTicket";
+import { useGetAllTickets, useDeleteTicket, useUpdateTicketStatus } from "@/hooks/useCreateTicket";
 import KanbanColumn from "../KanbanColumn/KanbanColumn";
 import TicketModal from "../popup/TicketModal";
 import { TICKET_STATUSES, STATUS_MAPPING, TicketStatus } from "../StatusColors/StatusColors";

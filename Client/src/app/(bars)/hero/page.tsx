@@ -17,7 +17,7 @@ export default function KanbanApp() {
   const renderMainContent = () => {
     switch (currentView) {
       case "all-issues":
-      case "all-tickets":
+      case "all-tickets": 
         return (
           <div className="">
             <KanbanBoard/>

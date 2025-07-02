@@ -105,10 +105,10 @@ const KanbanBoard = () => {
    </DialogContent>
     </Dialog>
 
-
-          <button onClick={() => router.push("/")} className="btn bg-blue-600 p-2 text-sm rounded border text-white">Logout</button>
+{/* 
+          <button onClick={() => router.push("/")} className="btn bg-blue-600 p-2 text-sm rounded border text-white">Logout</button> */}
         </div>
-      </div>
+      </div> 
 
       {isUpdating && <p className="text-blue-500 mb-2">Updating ticket status...</p>}
 

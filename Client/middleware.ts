@@ -1,36 +1,28 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+
+// List of protected routes
+const protectedRoutes = ['/hero', '/newtickets'];
 
 export function middleware(request: NextRequest) {
-  // Define protected routes (actual paths)
-  const protectedPaths = ['/dashboard', '/newTicket', '/(feed)/dashboard', '/(feed)/newTicket'];
   const { pathname } = request.nextUrl;
 
   // Check if the current path is protected
-  const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
-  console.log('Middleware triggered for:', pathname, '| Protected:', isProtected);
-
-  // If protected, check for auth cookie
-  if (isProtected) {
+  if (protectedRoutes.some(route => pathname.startsWith(route))) {
+    // Check for the accessToken cookie
     const accessToken = request.cookies.get('accessToken');
-    console.log('Access Token:', accessToken);
-    
     if (!accessToken) {
-      const loginUrl = new URL('/SignIn', request.url);
-      return NextResponse.redirect(loginUrl);
+      // Redirect to SignIn if not authenticated
+      const signInUrl = request.nextUrl.clone();
+      signInUrl.pathname = '/SignIn';
+      return NextResponse.redirect(signInUrl);
     }
   }
 
-  // Allow request to proceed
+  // Allow the request if authenticated or not a protected route
   return NextResponse.next();
 }
 
-// Specify the paths the middleware should run on (actual paths)
+// Specify the matcher for the middleware
 export const config = {
-  matcher: [
-    '/dashboard',
-    '/newTicket',
-    '/(feed)/dashboard',
-    '/(feed)/newTicket',
-  ],
-};
+  matcher: ['/heron/:path*', '/newtickets/:path*'],
+}; 

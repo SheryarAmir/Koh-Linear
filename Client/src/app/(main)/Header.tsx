@@ -9,14 +9,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Moon, Sun, User, Settings, LogOut, Menu, Monitor, Loader2 } from "lucide-react"
 import { useTheme } from "./theme-provider"
-import { useLogout } from "@/hooks/AuthHook"
+import { useMutation } from "@tanstack/react-query"
+import { userLogoutService } from "@/Services/userLogoutService"
+import { useRouter } from "next/navigation"
 
 export function Header() {
   const { theme, setTheme } = useTheme()
-  const logout = useLogout()
+  const router = useRouter();
+  const logout = useMutation({
+    mutationFn: userLogoutService,
+    onSuccess: () => {
+      router.push("/SignIn"); // Redirect to sign-in page after logout
+    },
+    onError: (error) => {
+      // Optionally show an error message
+      console.error("Logout failed:", error);
+    },
+  });
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-3">

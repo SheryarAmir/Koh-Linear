@@ -2,6 +2,7 @@ import { useMutation , useQuery } from "@tanstack/react-query";
 import { registerUser ,signInUser, logoutUser,getUserDetails  } from "@/Services/AuthServices"
 import { useRouter } from "next/navigation";  
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 
 
@@ -70,10 +71,23 @@ export const useLogout = () => {
 
 
 export const useUserDetails = () => {
-  return useQuery({
+  const query = useQuery({
     queryKey: ["userDetails"],
     queryFn: getUserDetails,
   });
+
+  useEffect(() => {
+    if (query.isSuccess) {
+      toast.success("User details fetched successfully!");
+    }
+    if (query.isError) {
+      const err = query.error as any;
+      const backendMessage = err?.response?.data?.message || "Failed to fetch user details";
+      toast.error(backendMessage);
+    }
+  }, [query.isSuccess, query.isError, query.error]);
+
+  return query;
 };
 
 

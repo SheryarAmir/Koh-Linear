@@ -21,10 +21,10 @@ export default function CreateTicketPage() {
   })
 
   function addNewTicket(){
-    router.push("/dashboard")
+    router.push("/hero")
   }
   function handlerShowAllTickets (){
-     router.push("/dashboard")
+     router.push("/hero")
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {

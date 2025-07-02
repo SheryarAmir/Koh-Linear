@@ -4,7 +4,7 @@ import * as React from "react"
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
 import { KanbanSidebar } from "../sidebar/page"
 import { KanbanTopbar } from "../topbar/page"
-import Dashboard from "@/app/(feed)/dashboard/page"
+import KanbanBoard from "@/app/(feed)/KanbanBoard/KanbanBoard"
 
 export default function KanbanApp() {
   const [currentView, setCurrentView] = React.useState("all-issues")
@@ -19,9 +19,8 @@ export default function KanbanApp() {
       case "all-issues":
       case "all-tickets":
         return (
-          <div className="p-6">
-            <h2 className="text-2xl font-semibold text-gray-900 ">All Tickets</h2>
-            <Dashboard/>
+          <div className="">
+            <KanbanBoard/>
           </div>
         )
       case "active":

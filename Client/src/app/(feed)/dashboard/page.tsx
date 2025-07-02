@@ -1,21 +1,20 @@
-"use client";
+// "use client";
 
-import React from "react";
-import KanbanBoard from "../KanbanBoard/KanbanBoard";
-// import Sidebar from "../sideBar/page";
-// import Topbar from "../topBar/page";
+// import React from "react";
+// import KanbanBoard from "../KanbanBoard/KanbanBoard";
 
-const Dashboard = () => {
-  return (
-    <main className="p-6">
-      {/* <Sidebar/> */}
-      <KanbanBoard />
-      {/* <Topbar/> */}
+
+// const Dashboard = () => {
+//   return (
+//     <main className="p-6">
+    
+//       <KanbanBoard />
+    
       
       
 
-    </main>
-  );
-};
+//     </main>
+//   );
+// };
 
-export default Dashboard;
+// export default Dashboard;

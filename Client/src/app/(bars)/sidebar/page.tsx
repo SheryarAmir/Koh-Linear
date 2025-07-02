@@ -36,23 +36,23 @@ export function KanbanSidebar({ onViewChange, currentView }: KanbanSidebarProps)
     },
   ]
 
-  const workspaceItems = [
-    {
-      title: "Projects",
-      icon: FolderKanban,
-      onClick: () => onViewChange("projects"),
-    },
-    {
-      title: "Views",
-      icon: Eye,
-      onClick: () => onViewChange("views"),
-    },
-    {
-      title: "More",
-      icon: MoreHorizontal,
-      onClick: () => onViewChange("more"),
-    },
-  ]
+  // const workspaceItems = [
+  //   {
+  //     title: "Projects",
+  //     icon: FolderKanban,
+  //     onClick: () => onViewChange("projects"),
+  //   },
+  //   {
+  //     title: "Views",
+  //     icon: Eye,
+  //     onClick: () => onViewChange("views"),
+  //   },
+  //   {
+  //     title: "More",
+  //     icon: MoreHorizontal,
+  //     onClick: () => onViewChange("more"),
+  //   },
+  // ]
 
   const teamItems = [
     {
@@ -79,7 +79,7 @@ export function KanbanSidebar({ onViewChange, currentView }: KanbanSidebarProps)
           <div className="flex h-8 w-8 items-center justify-center rounded bg-pink-500 text-white font-semibold text-sm">
             K
           </div>
-          <span className="font-semibold text-gray-900">Kohminds</span>
+          <span className="font-semibold text-gray-900">Kho-Linear</span>
         </div>
       </SidebarHeader>
 
@@ -107,7 +107,7 @@ export function KanbanSidebar({ onViewChange, currentView }: KanbanSidebarProps)
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Workspace Section */}
+        {/* Workspace Section
         <SidebarGroup>
           <SidebarGroupLabel className="text-gray-500 text-xs font-medium uppercase tracking-wide">
             Workspace
@@ -128,7 +128,7 @@ export function KanbanSidebar({ onViewChange, currentView }: KanbanSidebarProps)
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>
+        </SidebarGroup> */}
 
         {/* Your teams Section */}
         <SidebarGroup>
@@ -142,7 +142,7 @@ export function KanbanSidebar({ onViewChange, currentView }: KanbanSidebarProps)
                   <div className="flex h-5 w-5 items-center justify-center rounded bg-pink-500 text-white text-xs font-semibold">
                     K
                   </div>
-                  <span>Kohminds</span>
+                  <span>Kho-Linear</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               {teamItems.map((item) => (

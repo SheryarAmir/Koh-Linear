@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
-import { registerUser ,signInUser, logoutUser } from "@/Services/AuthServices"
+import { useMutation , useQuery } from "@tanstack/react-query";
+import { registerUser ,signInUser, logoutUser,getUserDetails  } from "@/Services/AuthServices"
 import { useRouter } from "next/navigation";  
 
 
@@ -37,7 +37,7 @@ export const SignIn = () => {
 
     onSuccess: (data) => {
       alert(data.message); 
-      router.push("/newTicket");
+      router.push("/hero");
     },
 
     onError: (error:any) => {
@@ -65,6 +65,17 @@ export const useLogout = () => {
     },
   });
 };
+
+
+
+
+export const useUserDetails = () => {
+  return useQuery({
+    queryKey: ["userDetails"],
+    queryFn: getUserDetails ,
+  });
+};
+
 
 
 

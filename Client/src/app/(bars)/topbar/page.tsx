@@ -1,9 +1,20 @@
 "use client"
 import { Search, Filter, MoreHorizontal, User, Grid3X3 } from "lucide-react"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+import UserProfile from "@/app/(profileDetails)/userProfile/page"
 
 interface KanbanTopbarProps {
   onViewChange: (view: string) => void
@@ -17,8 +28,11 @@ export function KanbanTopbar({ onViewChange, currentView }: KanbanTopbarProps) {
     { id: "backlog", label: "Backlog", icon: null },
   ]
 
+  const [open, setOpen] = useState(false)
+
+
   return (
-    <div className="flex h-14 items-center justify-between border-b border-gray-200 bg-white px-4">
+    <div className="flex h-[65px] items-center justify-between border-b border-gray-200 bg-white px-4">
       {/* Left side - Search and Navigation */}
       <div className="flex items-center gap-4">
         {/* Search */}
@@ -56,9 +70,23 @@ export function KanbanTopbar({ onViewChange, currentView }: KanbanTopbarProps) {
 
       {/* Right side - Actions */}
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
+
+
+ <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+         <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
           <User className="h-4 w-4" />
         </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <UserProfile/>
+        </DialogHeader>
+
+     
+
+ </DialogContent>
+    </Dialog>
 
         <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
           <Grid3X3 className="h-4 w-4" />

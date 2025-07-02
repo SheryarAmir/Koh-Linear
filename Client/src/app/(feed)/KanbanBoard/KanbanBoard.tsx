@@ -7,6 +7,18 @@ import { useGetAllTickets, useDeleteTicket, useUpdateTicketStatus } from "@/Hook
 import KanbanColumn from "../KanbanColumn/KanbanColumn";
 import TicketModal from "../popup/TicketModal";
 import { TICKET_STATUSES, STATUS_MAPPING, TicketStatus } from "../StatusColors/StatusColors";
+import { Button } from "@/components/ui/button"
+import NewTicket from "@/app/(feed)/newTicket/page"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+// import { useCreateTicket } from "@/Hooks/useCreateTicket"
 
 const KanbanBoard = () => {
   const router = useRouter();
@@ -18,6 +30,7 @@ const KanbanBoard = () => {
   const { data: tickets = [], isPending, isError, refetch, error } = useGetAllTickets();
   const { mutate: deleteTicket, isPending: isDeleting } = useDeleteTicket();
   const { mutate: updateTicket, isPending: isUpdating } = useUpdateTicketStatus();
+   const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (tickets.length > 0) setOptimisticTickets(tickets);
@@ -72,13 +85,28 @@ const KanbanBoard = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="px-8 py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Koh-Linear</h1>
-        <div className="flex gap-2">
-          <button onClick={() => refetch()} className="btn p-2 bg-amber-300 rounded-xl border text-white">Refresh</button>
-          <button onClick={() => router.push("/newTicket")} className="btn bg-green-600 p-2 rounded-xl border text-white">Create Ticket</button>
-          <button onClick={() => router.push("/")} className="btn bg-blue-600 p-2 rounded-xl border text-white">Logout</button>
+            <h2 className="text-2xl font-semibold text-gray-900 ">All Tickets</h2>
+
+        <div className="flex gap-2 ">
+          <button onClick={() => refetch()} className="btn p-2 text-sm bg-rose-900    rounded border text-white">Refresh</button>
+
+<Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button className="p-2 text-sm bg-green-600 rounded border text-white hover:bg-green-700">Create Ticket</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <NewTicket/>
+        </DialogHeader>
+{/* 
+          <button onClick={() => router.push("/newTicket")} className="btn p-2 text-sm bg-green-600  rounded border text-white">Create Ticket</button> */}
+   </DialogContent>
+    </Dialog>
+
+
+          <button onClick={() => router.push("/")} className="btn bg-blue-600 p-2 text-sm rounded border text-white">Logout</button>
         </div>
       </div>
 
@@ -101,7 +129,7 @@ const KanbanBoard = () => {
       </div>
 
 
-      <div className="mt-4 bg-white p-4 rounded-lg shadow-sm">
+      <div className="mt-10 bg-white p-4 rounded-lg shadow-sm">
         <h3 className="font-semibold text-gray-800 mb-3">How to use:</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
           <div>

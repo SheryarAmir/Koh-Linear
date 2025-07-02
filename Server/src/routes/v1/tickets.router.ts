@@ -9,6 +9,7 @@ ticketsRouter.post("/CreateTicket", ticketscontroller.AddTicket );
 ticketsRouter.get("/getTicket", ticketscontroller.GetTicket );
 ticketsRouter.delete("/DeleteTicket/:id", ticketscontroller.DeleteTicketcontroller);
 ticketsRouter.patch("/Updatetickets/:id", ticketscontroller.UpDateTicketController);
+ticketsRouter.get("/getUserData", ticketscontroller.getUserDetails );
 
 
 

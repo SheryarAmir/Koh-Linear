@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { registerUser ,signInUser, logoutUser } from "@/Services/AuthServices"
 import { useRouter } from "next/navigation";  
+import { toast } from "sonner";
 
 
 
@@ -14,7 +15,7 @@ export const useRegister = () => {
 
     onSuccess: (data) => {
     
-      alert(data.message); 
+      toast.success(data.message || "Registration successful!");
       router.push("/SignIn")
 
     },
@@ -22,7 +23,7 @@ export const useRegister = () => {
     onError: (error:any) => {
      
       const backendMessage = error?.response?.data?.message || "An unexpected error occurred";
-      alert(backendMessage);
+      toast.error(backendMessage);
     },
   });
 };
@@ -36,24 +37,24 @@ export const SignIn = () => {
     mutationFn: signInUser,
 
     onSuccess: (data) => {
-      alert(data.message); 
+      toast.success(data.message || "Sign in successful!");
       router.push("/newTicket");
     },
 
     onError: (error:any) => {
      
       const backendMessage = error?.response?.data?.message || "An unexpected error occurred";
-      alert(backendMessage);
+      toast.error(backendMessage);
     },
   });
 };
 
 export const useLogout = () => {
   const router = useRouter();
-
   return useMutation({
     mutationFn: logoutUser,
     onSuccess: (data) => {
+      toast.success(data.message || "Logout successful!");
       localStorage.clear();
       sessionStorage.clear();
       router.push("/SignIn");
@@ -61,10 +62,20 @@ export const useLogout = () => {
     },
     onError: (error: any) => {
       const backendMessage = error?.response?.data?.message || "An unexpected error occurred";
-      alert(backendMessage);
+      toast.error(backendMessage);
     },
   });
 };
+  
+  
+
+
+
+
+
+;
+
+
 
 
 

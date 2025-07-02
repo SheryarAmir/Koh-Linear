@@ -38,7 +38,8 @@ export const SignIn = () => {
 
     onSuccess: (data) => {
       toast.success(data.message || "Sign in successful!");
-      router.push("/newTicket");
+      
+      router.push("/hero");
     },
 
     onError: (error:any) => {
@@ -66,6 +67,15 @@ export const useLogout = () => {
     },
   });
 };
+
+
+export const useUserDetails = () => {
+  return useQuery({
+    queryKey: ["userDetails"],
+    queryFn: getUserDetails,
+  });
+};
+
 
 
 

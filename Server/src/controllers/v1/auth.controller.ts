@@ -96,15 +96,18 @@ export async function SignIn(req: Request, res: Response): Promise<void> {
 
     // Respond with success message and token
     // console.log(accessToken)
-    res
-      .cookie("accessToken", accessToken, {
-        httpOnly: true,
-        secure: false, // true in production
-        sameSite: "lax",
-        maxAge: 24 * 60 * 60 * 1000,
-      })
-      .status(200)
-      .json({ message: "Login successful", ExistUser: user });
+      res
+        .cookie("accessToken", accessToken, {
+          httpOnly: true,
+          secure: false, // true in production
+          sameSite: "lax",
+          maxAge: 24 * 60 * 60 * 1000,
+          path:"/"
+        })
+        .status(200)
+        .json({ message: "Login successful",
+          token: accessToken
+          , ExistUser: user });
   } catch (error) {
     if (error instanceof ZodError) {
       res

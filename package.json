@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/jwt-decode": "^2.2.1"
+  }
+}

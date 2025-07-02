@@ -1,6 +1,6 @@
 
 
-import { api } from "@/lib/axios";
+import { api } from "@/api/api";
 
 import { Ticket, TicketPayload } from "@/Types/TicketTypes";
 

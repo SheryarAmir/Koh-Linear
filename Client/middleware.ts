@@ -8,12 +8,14 @@ export function middleware(request: NextRequest) {
 
   // Check if the current path is protected
   const isProtected = protectedPaths.some((path) => pathname.startsWith(path));
+  console.log('Middleware triggered for:', pathname, '| Protected:', isProtected);
 
   // If protected, check for auth cookie
   if (isProtected) {
-    const authToken = request.cookies.get('authToken');
-    if (!authToken) {
-      // Redirect to SignIn page
+    const accessToken = request.cookies.get('accessToken');
+    console.log('Access Token:', accessToken);
+    
+    if (!accessToken) {
       const loginUrl = new URL('/SignIn', request.url);
       return NextResponse.redirect(loginUrl);
     }

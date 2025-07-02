@@ -10,19 +10,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Moon, Sun, User, Settings, LogOut, Menu, Monitor } from "lucide-react"
+import { Moon, Sun, User, Settings, LogOut, Menu, Monitor, Loader2 } from "lucide-react"
 import { useTheme } from "./theme-provider"
-import { useRouter } from "next/navigation"
 import { useLogout } from "@/Hooks/AuthHook"
 
 export function Header() {
   const { theme, setTheme } = useTheme()
-  const router = useRouter()
-  const { mutate: logout } = useLogout()
-
-  const handleLogout = () => {
-    logout()
-  }
+  const logout = useLogout()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-3">
@@ -128,8 +122,16 @@ export function Header() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-red-600 focus:text-red-600 dark:text-red-400">
-                  <LogOut onClick={handleLogout} className="mr-2 h-4 w-4" />
+                <DropdownMenuItem
+                  className="text-red-600 focus:text-red-600 dark:text-red-400"
+                  onClick={() => logout.mutate()}
+                  disabled={logout.isPending}
+                >
+                  {logout.isPending ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <LogOut className="mr-2 h-4 w-4" />
+                  )}
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>

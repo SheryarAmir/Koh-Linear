@@ -1,6 +1,6 @@
 // src/app/details/page.tsx
 import React from "react";
-import{ useUserDetails} from "@/Hooks/AuthHook";
+import{ useUserDetails} from "@/hooks/AuthHook";
 
 const Page = () => {
   const { data, isLoading, error } = useUserDetails();

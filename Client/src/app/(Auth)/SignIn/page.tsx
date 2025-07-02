@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator"
 import { useActionState } from "react"
 import { SignInTypes } from "@/Types/AuthTypes"
 import { sigInSchema } from "@/lib/validations/register-schema"
-import {SignIn} from "@/Hooks/AuthHook"
+import {SignIn} from "@/hooks/AuthHook"
 
 export default function LoginPage() {
 

@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useRouter } from "next/navigation";
 // import { useForm, useFormState } from "react-dom";
-import { useCreateTicket } from "@/Hooks/useCreateTicket"
+import { useCreateTicket } from "@/hooks/useCreateTicket"
 import { ticketSchema } from "@/lib/validations/ticketSchema"
 import { useState } from "react"
 

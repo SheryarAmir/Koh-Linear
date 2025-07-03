@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 // 👇 Define your expected user structure
 interface UserPayload {
   email: string;
-  password: string;
+  id: string;
 }
 
 // 👇 Extend Express.Request locally

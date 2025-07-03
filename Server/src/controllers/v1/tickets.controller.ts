@@ -119,15 +119,3 @@ export const UpDateTicketController = async (req: Request, res: Response) => {
 };
 
 
-export const getUserDetails=async(req: Request, res: Response)=>{
-
-  try{
-
-    
-
-
-
-  }catch{
-
-  }
-}

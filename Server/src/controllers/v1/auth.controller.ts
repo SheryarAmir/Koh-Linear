@@ -90,7 +90,7 @@ export async function SignIn(req: Request, res: Response): Promise<void> {
         .json({ message: "JWT secret not found in environment variables" });
       return;
     }
-    const accessToken = JWT.sign({ email: user.email, id:user.password}, secret, {
+    const accessToken = JWT.sign({ email: user.email, id:user._id}, secret, {
       expiresIn: "1h",
     });
 
@@ -136,3 +136,11 @@ export const Logout = async (req: Request, res: Response): Promise<void> => {
       .json({ message: "Logout failed" });
   }
 };
+
+
+export const getUserDetails= async(req:Request , res:Response)=>{
+
+ 
+
+  res.json({message : "user data"})
+}

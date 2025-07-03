@@ -12,23 +12,12 @@ import {
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Moon, Sun, User, Settings, LogOut, Menu, Monitor, Loader2 } from "lucide-react"
 import { useTheme } from "./theme-provider"
-import { useMutation } from "@tanstack/react-query"
-import { userLogoutService } from "@/Services/userLogoutService"
-import { useRouter } from "next/navigation"
+import { useLogout } from "@/hooks/logOutHook"
+
 
 export function Header() {
   const { theme, setTheme } = useTheme()
-  const router = useRouter();
-  const logout = useMutation({
-    mutationFn: userLogoutService,
-    onSuccess: () => {
-      router.push("/SignIn"); // Redirect to sign-in page after logout
-    },
-    onError: (error) => {
-      // Optionally show an error message
-      console.error("Logout failed:", error);
-    },
-  });
+  const logout = useLogout();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-3">

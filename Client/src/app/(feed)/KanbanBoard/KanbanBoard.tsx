@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { useLogout } from "@/hooks/logOutHook";
 
 
 // import { useCreateTicket } from "@/Hooks/useCreateTicket"
@@ -31,7 +32,7 @@ const KanbanBoard = () => {
   const { data: tickets = [], isPending, isError, refetch, error } = useGetAllTickets();
   const { mutate: deleteTicket, isPending: isDeleting } = useDeleteTicket();
   const { mutate: updateTicket, isPending: isUpdating } = useUpdateTicketStatus();
-
+  const { mutate: logout, isPending: isLoggingOut } = useLogout();
    const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -100,8 +101,8 @@ const KanbanBoard = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-           <DialogTitle>new Ticket</DialogTitle> {/* ✅ Add this */}
-          <DialogDescription>let start and create ticket assign to  some one</DialogDescription>
+          <DialogTitle className="sr-only">Create Ticket</DialogTitle>
+          <NewTicket/>
         </DialogHeader>
 {/* 
           <button onClick={() => router.push("/newTicket")} className="btn p-2 text-sm bg-green-600  rounded border text-white">Create Ticket</button> */}
@@ -111,8 +112,10 @@ const KanbanBoard = () => {
 
     </Dialog>
 
-{/* 
-          <button onClick={() => router.push("/")} className="btn bg-blue-600 p-2 text-sm rounded border text-white">Logout</button> */}
+
+          <button onClick={() => logout()} className="btn bg-blue-600 p-2 text-sm rounded border text-white" disabled={isLoggingOut}>
+            {isLoggingOut ? "Logging out..." : "Logout"}
+          </button>
         </div>
       </div> 
 

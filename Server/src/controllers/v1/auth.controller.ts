@@ -128,6 +128,7 @@ export const Logout = async (req: Request, res: Response): Promise<void> => {
       sameSite: "lax",
       path: "/",
     });
+    console.log("User logged out");
     res.status(HttpStatus.OK).json({ message: "Logout successful" });
   } catch (error) {
     console.error("Logout error:", error);

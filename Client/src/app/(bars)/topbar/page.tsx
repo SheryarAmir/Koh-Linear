@@ -102,11 +102,25 @@ export function KanbanTopbar({ onViewChange, currentView }: KanbanTopbarProps) {
           </DialogContent>
         </Dialog>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-gray-600 hover:text-gray-900"
-        >
+
+ <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+         <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
+          <User className="h-4 w-4" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="sr-only">User Profile</DialogTitle>
+          <UserProfile/>
+        </DialogHeader>
+
+     
+
+ </DialogContent>
+    </Dialog>
+
+        <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
           <Grid3X3 className="h-4 w-4" />
         </Button>
 

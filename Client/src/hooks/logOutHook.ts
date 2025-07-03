@@ -10,18 +10,14 @@ export function useLogout() {
     onSuccess: async (data) => {
       if (data?.message === "Logout successful") {
         toast.success("You have been successfully logged out.");
-        router.push("/SignIn");
-        window.location.reload();
+        router.replace("/SignIn");
       } else {
         toast.error("Failed to logout. Please try again.");
-        console.error("Logout failed: Cookie not removed (backend did not confirm logout)");
-        // Do NOT redirect
       }
     },
     onError: (error) => {
       toast.error(error?.message || "Failed to logout.");
       console.error("Logout failed:", error);
-      // Do NOT redirect
     },
   });
 }

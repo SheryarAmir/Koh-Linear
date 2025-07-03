@@ -7,6 +7,7 @@ const LogoutButton: React.FC = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
+    console.log("Logout button clicked"); 
     try {
       await userLogoutService();
       toast.success("Logout successful!");

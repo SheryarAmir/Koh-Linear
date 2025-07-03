@@ -1,6 +1,4 @@
 import { NextResponse, NextRequest } from 'next/server'
-import Cookies from "js-cookie";
-import { toast } from "@/components/ui/use-toast";
 
 export function middleware(request: NextRequest) {
   // Check for the accessToken cookie

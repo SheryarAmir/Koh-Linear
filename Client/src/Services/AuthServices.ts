@@ -23,13 +23,6 @@ export const signInUser = async (user: SignInTypes) => {
   return res.data;
 };
 
-export const logoutUser = async () => {
-  const res = await api.post("/v1/auth/logout", {}, {
-    withCredentials: true
-  });
-  return res.data;
-};
-
 
 export const getUserDetails  =async ()=>{
 

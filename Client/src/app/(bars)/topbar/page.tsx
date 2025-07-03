@@ -80,6 +80,7 @@ export function KanbanTopbar({ onViewChange, currentView }: KanbanTopbarProps) {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
+          <DialogTitle className="sr-only">User Profile</DialogTitle>
           <UserProfile/>
         </DialogHeader>
 

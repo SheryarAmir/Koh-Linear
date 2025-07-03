@@ -13,3 +13,9 @@ export const RegisterService = async (userData: UserSignupInput) => {
 export const SignInService = async (email: string ) => {
   return await Auth.findOne({ email  }); // returns a single user
 };
+
+export const verifyUserDetailService=async(id:string)=>{
+
+ return await Auth.findById(id)
+
+}

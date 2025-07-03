@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
+
 // import { useCreateTicket } from "@/Hooks/useCreateTicket"
 
 const KanbanBoard = () => {
@@ -30,6 +31,7 @@ const KanbanBoard = () => {
   const { data: tickets = [], isPending, isError, refetch, error } = useGetAllTickets();
   const { mutate: deleteTicket, isPending: isDeleting } = useDeleteTicket();
   const { mutate: updateTicket, isPending: isUpdating } = useUpdateTicketStatus();
+
    const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -98,11 +100,15 @@ const KanbanBoard = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <NewTicket/>
+           <DialogTitle>new Ticket</DialogTitle> {/* ✅ Add this */}
+          <DialogDescription>let start and create ticket assign to  some one</DialogDescription>
         </DialogHeader>
 {/* 
           <button onClick={() => router.push("/newTicket")} className="btn p-2 text-sm bg-green-600  rounded border text-white">Create Ticket</button> */}
+
+           <NewTicket/>
    </DialogContent>
+
     </Dialog>
 
 {/* 

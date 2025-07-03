@@ -33,7 +33,10 @@ export const logoutUser = async () => {
 
 export const getUserDetails  =async ()=>{
 
-  const res= await api.get("/v1/auth/getUserData")
+  const res= await api.get("/v1/auth/getUserData",{
+
+    withCredentials: true, 
+  })
 
   return res.data;
 

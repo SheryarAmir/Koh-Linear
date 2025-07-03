@@ -3,7 +3,7 @@ import Auth from "../../models/AuthModal";
 import JWT from "jsonwebtoken";
 import { env } from "process";
 import { RegisterSchema, SignInSchema } from "../../schema/Auth.schema";
-import { RegisterService, SignInService } from "../../services/auth.service";
+import { RegisterService, SignInService ,verifyUserDetailService } from "../../services/auth.service";
 
 import { HttpStatus } from "../../utils/httpStatus";
 import bcrypt from "bcryptjs";
@@ -138,9 +138,33 @@ export const Logout = async (req: Request, res: Response): Promise<void> => {
 };
 
 
-export const getUserDetails= async(req:Request , res:Response)=>{
 
- 
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 
-  res.json({message : "user data"})
-}
+export const getUserDetails = async (req: Request, res: Response) => {
+  const token = req.cookies.accessToken;
+
+  if (!token) {
+    res.status(401).json({ message: "No token found" });
+  }
+
+  try {
+    // 👇 Verify and decode token
+    const decoded = JWT.verify(token, JWT_SECRET) as { id: string, email?: string };
+
+    // ✅ Destructure the user id
+    const { id } = decoded;
+
+    // console.log("User ID from token:", id);
+
+    const verifyUser = await verifyUserDetailService(id)
+
+    console.log(` you verify data is ${verifyUser}`)
+
+    res.json({ message: "Token is valid", verifyUser  });
+
+  } catch (err) {
+    console.error("JWT Error:", err);
+     res.status(401).json({ message: "Invalid or expired token" });
+  }
+};

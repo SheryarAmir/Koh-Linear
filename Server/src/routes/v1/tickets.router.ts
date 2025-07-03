@@ -1,14 +1,15 @@
 import { Router } from "express";
-
 import * as ticketscontroller from "../../controllers/v1/tickets.controller";
+
+import { authMiddleware } from "../../middleware/AuthMiddleware";
 
 
 const ticketsRouter = Router();
 
-ticketsRouter.post("/CreateTicket", ticketscontroller.AddTicket );
-ticketsRouter.get("/getTicket", ticketscontroller.GetTicket );
-ticketsRouter.delete("/DeleteTicket/:id", ticketscontroller.DeleteTicketcontroller);
-ticketsRouter.patch("/Updatetickets/:id", ticketscontroller.UpDateTicketController);
+ticketsRouter.post("/CreateTicket",authMiddleware, ticketscontroller.AddTicket );
+ticketsRouter.get("/getTicket",authMiddleware, ticketscontroller.GetTicket );
+ticketsRouter.delete("/DeleteTicket/:id", authMiddleware,ticketscontroller.DeleteTicketcontroller);
+ticketsRouter.patch("/Updatetickets/:id",authMiddleware, ticketscontroller.UpDateTicketController);
 
 
 

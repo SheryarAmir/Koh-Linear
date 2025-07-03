@@ -113,7 +113,7 @@ const KanbanBoard = () => {
             {isLoggingOut ? "Logging out..." : "Logout"}
           </button>
         </div>
-      </div>
+      </div> 
 
       {isUpdating && <p className="text-blue-500 mb-2">Updating ticket status...</p>}
 

@@ -12,23 +12,12 @@ import {
 // import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Moon, Sun, User, Settings, LogOut, Menu, Monitor, Loader2 } from "lucide-react"
 import { useTheme } from "./theme-provider"
-import { useMutation } from "@tanstack/react-query"
-import { userLogoutService } from "@/Services/userLogoutService"
 import { useRouter } from "next/navigation"
+import LogoutButton from "@/components/logOut"
+
 
 export function Header() {
   const { theme, setTheme } = useTheme()
-  const router = useRouter();
-  const logout = useMutation({
-    mutationFn: userLogoutService,
-    onSuccess: () => {
-      router.push("/SignIn"); // Redirect to sign-in page after logout
-    },
-    onError: (error) => {
-      // Optionally show an error message
-      console.error("Logout failed:", error);
-    },
-  });
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-3">
@@ -134,17 +123,8 @@ export function Header() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="text-red-600 focus:text-red-600 dark:text-red-400"
-                  onClick={() => logout.mutate()}
-                  disabled={logout.isPending}
-                >
-                  {logout.isPending ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <LogOut className="mr-2 h-4 w-4" />
-                  )}
-                  Log out
+                <DropdownMenuItem asChild>
+                  <LogoutButton />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

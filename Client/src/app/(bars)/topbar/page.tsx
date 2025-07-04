@@ -9,7 +9,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+
 } from "@/components/ui/dropdown-menu";
+
 import {
   Dialog,
   DialogContent,
@@ -103,7 +105,7 @@ export function KanbanTopbar({ onViewChange, currentView }: KanbanTopbarProps) {
         </Dialog>
 
 
- <Dialog open={open} onOpenChange={setOpen}>
+ {/* <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
          <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
           <User className="h-4 w-4" />
@@ -118,11 +120,11 @@ export function KanbanTopbar({ onViewChange, currentView }: KanbanTopbarProps) {
      
 
  </DialogContent>
-    </Dialog>
+    </Dialog> */}
 
-        <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
+        {/* <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
           <Grid3X3 className="h-4 w-4" />
-        </Button>
+        </Button> */}
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

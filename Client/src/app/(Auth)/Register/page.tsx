@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useActionState } from "react";
 import { RegisterSchema, } from "@/lib/validations/register-schema";
 import { AuthTypes } from "@/Types/AuthTypes";
+// import {useGoogleLogin} from " @react-outh/google"
 
 export default function RegisterPage() {
 
@@ -20,6 +21,15 @@ export default function RegisterPage() {
 function handleRegisterForm(prevState: any, formData: FormData) {   // Function to handle form submission
   
   
+
+//   function handlerGoogleLogin(){
+// console.log("sign in with google")
+//   }
+
+
+
+
+
   const rawData: AuthTypes = {   // Extracting form data and casting to AuthTypes
 
   firstName: formData.get("firstName") as string,
@@ -140,7 +150,7 @@ const [fromState, fromAction] = useActionState(handleRegisterForm , {errors:null
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="h-11">
+            <Button variant="outline" className="h-11" onClick={()=>console.log("sign with google")}>
               {/* Google Icon */}
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -150,6 +160,8 @@ const [fromState, fromAction] = useActionState(handleRegisterForm , {errors:null
               </svg>
               Google
             </Button>
+
+
             <Button variant="outline" className="h-11">
               {/* Twitter Icon */}
               <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">

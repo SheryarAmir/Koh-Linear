@@ -5,11 +5,11 @@ import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { KanbanSidebar } from "../sidebar/page";
 import { KanbanTopbar } from "../topbar/page";
 import KanbanBoard from "@/app/(feed)/KanbanBoard/KanbanBoard";
-import Inbox from "../../(profileDetails)/Inbox/page";
-import MyIssues from "../../(profileDetails)/MyIssues/page";
-import TeamProjects from "../../(profileDetails)/TeamProjects/page";
-import TeamViews from "../../(profileDetails)/TeamViews/page";
-import AllTickets from "../../(profileDetails)/AllTickets/page";
+import {Inbox} from "../../(profileDetails)/Inbox/page";
+import {MyIssues} from "../../(profileDetails)/MyIssues/page";
+import {TeamProjects} from "../../(profileDetails)/TeamProjects/page";
+import {TeamViews} from "../../(profileDetails)/TeamViews/page";
+
 
 export default function KanbanApp() {
   const [currentView, setCurrentView] = React.useState("all-issues");
@@ -69,11 +69,11 @@ export default function KanbanApp() {
             onViewChange={handleViewChange}
             currentView={currentView}
           />
-          <main className="flex-1 bg-white">
+          <main className="flex-1 bg-white mx-auto container">
             {renderMainContent()}
             {currentView === "inbox" && <Inbox />}
             {currentView === "my-issues" && <MyIssues />}
-            {currentView === "all-tickets" && <AllTickets />}
+          
             {currentView === "team-projects" && <TeamProjects />}
             {currentView === "team-views" && <TeamViews />}
           </main>

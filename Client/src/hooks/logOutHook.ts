@@ -10,7 +10,7 @@ export function useLogout() {
     onSuccess: async (data) => {
       if (data?.message === "Logout successful") {
         toast.success("You have been successfully logged out.");
-        router.replace("/SignIn");
+        router.replace("/");
       } else {
         toast.error("Failed to logout. Please try again.");
       }

@@ -122,6 +122,10 @@ export function KanbanSidebar({ onViewChange, currentView }: KanbanSidebarProps)
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+
+
+        
       </SidebarContent>
 
       <SidebarFooter className="border-t border-gray-100 p-4">

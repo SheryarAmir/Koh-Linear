@@ -102,11 +102,7 @@ const KanbanBoard = () => {
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="sr-only">Create Ticket</DialogTitle>
-          <NewTicket/>
         </DialogHeader>
-{/* 
-          <button onClick={() => router.push("/newTicket")} className="btn p-2 text-sm bg-green-600  rounded border text-white">Create Ticket</button> */}
-
            <NewTicket/>
    </DialogContent>
 

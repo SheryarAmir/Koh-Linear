@@ -11,7 +11,11 @@ export const createTicket = async (data: TicketPayload) => {
   
   console.log(data);
 
-  const res = await api.post("/v1/ticket/CreateTicket", data);
+  const res = await api.post("/v1/ticket/CreateTicket", data, {
+
+    
+    withCredentials: true,
+  });
 
   console.log(res.data);
 

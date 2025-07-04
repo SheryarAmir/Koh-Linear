@@ -1,7 +1,7 @@
 import Ticket from "../models/TicketsModal";
 import { TicketTypes } from "../Types/TicketType";
 
-export const AddNewTicketService = async (TicketData: TicketTypes) => {
+export const AddNewTicketService = async (TicketData: TicketTypes ) => {
 
   const newTicket = await Ticket.create(TicketData);
   

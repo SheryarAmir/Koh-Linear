@@ -9,51 +9,37 @@ import JWT from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
 export const AddTicket = async (req: Request, res: Response): Promise<void> => {
-
-
   try {
-
-    const InComingData=req.body
-    // console.log(InComingData)
-
-
-
     const token = req.cookies.accessToken;
-    
-      if (!token) {
-        res.status(401).json({ message: "No token found" });
-      }
-    
-        // 👇 Verify and decode token
-        const decoded = JWT.verify(token, JWT_SECRET) as { CreaterId: string };
-    
-        // ✅ Destructure the user id
-        const { CreaterId } = decoded;
 
+    if (!token) {
+      console.log("No token found");
+      res.status(401).json({ message: "No token found" });
+      return;
+    }
 
+    console.log("Token:", token);
 
-      console.log(`this is creater id : ${CreaterId}`)
+    const decoded = JWT.verify(token, JWT_SECRET) as { id: string };
+    const { id } = decoded;
 
+    console.log("Decoded User ID:", id);
 
+    const InComingData = req.body;
+    const TicketData = AddNewTicketSchema.parse(InComingData);
 
+    console.log("TicketData:", TicketData);
 
+    const newTicket = await AddNewTicketService(TicketData, id);
 
-
-     const TicketData = AddNewTicketSchema.parse(InComingData);
-
-    //  console.log(TicketData);
-
-    const newTicket = await AddNewTicketService(TicketData);
-     console.log(TicketData);
+    console.log("Created newTicket:", newTicket); // 👈 This should now work
 
     res.status(201).json({
       message: "Ticket created successfully",
       newTicket,
     });
-
-
   } catch (error) {
-
+    console.log("Error in AddTicket:", error);
 
     if (error instanceof ZodError) {
       res.status(400).json({
@@ -68,6 +54,7 @@ export const AddTicket = async (req: Request, res: Response): Promise<void> => {
     });
   }
 };
+
 
 
 

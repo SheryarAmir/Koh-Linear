@@ -16,6 +16,14 @@ const TicketsSchema = new mongoose.Schema(
       enum: ["Todo", "In Progress" , "Review" , "Backlog" , "Done"], // restrict to allowed values
       required: true,
     },
+
+    createdBy: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Auth",
+  required: true,
+}
+
+    
   },
   { timestamps: true }
 );

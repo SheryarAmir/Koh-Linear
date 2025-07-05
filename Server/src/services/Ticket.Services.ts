@@ -1,11 +1,19 @@
 import Ticket from "../models/TicketsModal";
 import { TicketTypes } from "../Types/TicketType";
 
-export const AddNewTicketService = async (TicketData: TicketTypes ) => {
+export const AddNewTicketService = async (TicketData: TicketTypes  ,CreaterId :string) => {
 
-  const newTicket = await Ticket.create(TicketData);
-  
+  const ticketPayload = {
+    ...TicketData,
+    createdBy: CreaterId,
+  };
+
+  console.log("Final payload sent to Mongoose:", ticketPayload);
+
+  const newTicket = await Ticket.create(ticketPayload);
+
   return newTicket;
+
 
 
 };

@@ -31,10 +31,6 @@ export const getTickets=async()=>{
 }
 
 
-
-
-
-
 export const deleteTicket = async (id: string) => {
   console.log(id)
   const res = await api.delete(`/v1/ticket/DeleteTicket/${id}`)
@@ -43,8 +39,6 @@ export const deleteTicket = async (id: string) => {
 
   return res.data.message 
 }
-
-
 
 
 export const updateTicketStatus = async (id: string, status: string) => {
@@ -59,4 +53,16 @@ export const updateTicketStatus = async (id: string, status: string) => {
     console.error("Error updating ticket:", error)
     throw error
   }
+}
+
+
+
+export const GetMyTickets=async()=>{
+  const res=await api.get("/v1/ticket/getMyIssues",{
+    withCredentials: true,
+
+  })
+
+  console.log(res.data)
+  return res.data.getMyIssuesData
 }

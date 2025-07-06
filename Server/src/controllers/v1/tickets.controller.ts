@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AddNewTicketSchema } from "../../schema/Ticket.Schema";
-import { AddNewTicketService,GetAllTicketsService,DeleteTicketService,UpDateTicketService } from "../../services/Ticket.Services";
+import { AddNewTicketService,GetAllTicketsService,DeleteTicketService,UpDateTicketService ,GetMyIssuesServices} from "../../services/Ticket.Services";
 import { ZodError } from "zod";
 import JWT from "jsonwebtoken";
 
@@ -18,12 +18,12 @@ export const AddTicket = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    console.log("Token:", token);
+    // console.log("Token:", token);
 
     const decoded = JWT.verify(token, JWT_SECRET) as { id: string };
     const { id } = decoded;
 
-    console.log("Decoded User ID:", id);
+    // console.log("Decoded User ID:", id);
 
     const InComingData = req.body;
     const TicketData = AddNewTicketSchema.parse(InComingData);
@@ -54,11 +54,6 @@ export const AddTicket = async (req: Request, res: Response): Promise<void> => {
     });
   }
 };
-
-
-
-
-
 
 
 export const GetTicket = async (req: Request, res: Response) => {
@@ -136,3 +131,43 @@ export const UpDateTicketController = async (req: Request, res: Response) => {
 };
 
 
+
+
+
+export const GetMyTicket=async(req:Request ,res:Response)=>{
+
+ try{ 
+  
+   const token = req.cookies.accessToken;
+
+    if (!token) {
+      console.log("No token found");
+      res.status(401).json({ message: "No token found" });
+      return;
+    }
+
+    // console.log("Token:", token);
+    const decoded = JWT.verify(token, JWT_SECRET) as { id: string };
+    const { id } = decoded;
+  
+  console.log( ` this is my o find my ticket only ${id}`)
+
+  const getMyIssuesData= await GetMyIssuesServices(id)
+
+  console.log(getMyIssuesData)
+
+  res.status(500).json({
+  message : "only you tickets", 
+  getMyIssuesData
+  })
+
+}
+catch(error){
+
+console.error("Error fetching tickets:", error);
+    res.status(500).json({
+      message: "Something went wrong while fetching tickets",
+    });
+}
+
+}

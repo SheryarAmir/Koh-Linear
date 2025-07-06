@@ -7,6 +7,8 @@ ticketsRouter.post("/CreateTicket",authMiddleware, ticketscontroller.AddTicket )
 ticketsRouter.get("/getTicket",authMiddleware, ticketscontroller.GetTicket );
 ticketsRouter.delete("/DeleteTicket/:id", authMiddleware,ticketscontroller.DeleteTicketcontroller);
 ticketsRouter.patch("/Updatetickets/:id",authMiddleware, ticketscontroller.UpDateTicketController);
+ticketsRouter.get("/getMyIssues",authMiddleware, ticketscontroller.GetMyTicket );
+
 
 
 

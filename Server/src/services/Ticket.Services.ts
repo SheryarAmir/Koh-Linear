@@ -1,4 +1,5 @@
 import Ticket from "../models/TicketsModal";
+import Api1 from "../routes/v1/global.router";
 import { TicketTypes } from "../Types/TicketType";
 
 export const AddNewTicketService = async (TicketData: TicketTypes  ,CreaterId :string) => {
@@ -47,3 +48,9 @@ export const UpDateTicketService = async (id: string, status: string) => {
 
   return updatedTicket
 }
+
+export const GetMyIssuesServices=async(id:string)=>{
+
+    const onlyMyTickets = await Ticket.find({ createdBy: id });
+  return onlyMyTickets
+}   

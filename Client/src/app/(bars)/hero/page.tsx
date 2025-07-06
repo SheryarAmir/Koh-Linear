@@ -7,7 +7,7 @@ import { KanbanTopbar } from "../topbar/page";
 import KanbanBoard from "@/app/(feed)/KanbanBoard/KanbanBoard";
 import {Inbox} from "../../(profileDetails)/Inbox/page";
 import {MyIssues} from "../../(profileDetails)/MyIssues/page";
-import {TeamProjects} from "../../(profileDetails)/TeamProjects/page";
+import {TeamProjects} from "../../(profileDetails)/TeamProjects/page";  
 import {TeamViews} from "../../(profileDetails)/TeamViews/page";
 
 

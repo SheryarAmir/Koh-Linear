@@ -2,9 +2,11 @@
 
 
 import { useMutation ,useQuery  } from "@tanstack/react-query";
-import { createTicket ,getTickets, deleteTicket,updateTicketStatus} from "@/Services/ticketServices";
+import { createTicket ,getTickets, deleteTicket,updateTicketStatus,GetMyTickets} from "@/Services/ticketServices";
 import {TicketPayload ,Ticket } from "@/Types/TicketTypes"
 import { useQueryClient } from "@tanstack/react-query"
+
+
 
 export const useCreateTicket = () => {
 
@@ -19,8 +21,6 @@ export const useCreateTicket = () => {
     },
   });
 };
-
-
 
 export const useGetAllTickets = () => {
   return useQuery<Ticket[]>({
@@ -61,3 +61,15 @@ export const useUpdateTicketStatus = () => {
 }
 
 
+
+
+export const useGetMyTickets=()=>{
+
+  return useQuery<Ticket[]>({
+    queryKey: ["Tickets"],
+    queryFn:GetMyTickets ,
+    enabled: true, // Only fetch on refetch()
+  })
+  
+
+}

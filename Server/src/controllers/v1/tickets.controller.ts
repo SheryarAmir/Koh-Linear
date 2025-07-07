@@ -134,40 +134,40 @@ export const UpDateTicketController = async (req: Request, res: Response) => {
 
 
 
-export const GetMyTicket=async(req:Request ,res:Response)=>{
+// export const GetMyTicket=async(req:Request ,res:Response)=>{
 
- try{ 
+//  try{ 
   
-   const token = req.cookies.accessToken;
+//    const token = req.cookies.accessToken;
 
-    if (!token) {
-      console.log("No token found");
-      res.status(401).json({ message: "No token found" });
-      return;
-    }
+//     if (!token) {
+//       console.log("No token found");
+//       res.status(401).json({ message: "No token found" });
+//       return;
+//     }
 
-    // console.log("Token:", token);
-    const decoded = JWT.verify(token, JWT_SECRET) as { id: string };
-    const { id } = decoded;
+//     // console.log("Token:", token);
+//     const decoded = JWT.verify(token, JWT_SECRET) as { id: string };
+//     const { id } = decoded;
   
-  console.log( ` this is my o find my ticket only ${id}`)
+//   console.log( ` this is my o find my ticket only ${id}`)
 
-  const getMyIssuesData= await GetMyIssuesServices(id)
+//   const getMyIssuesData= await GetMyIssuesServices(id)
 
-  console.log(getMyIssuesData)
+//   console.log(getMyIssuesData)
 
-  res.status(500).json({
-  message : "only you tickets", 
-  getMyIssuesData
-  })
+//   res.status(500).json({
+//   message : "only you tickets", 
+//   getMyIssuesData
+//   })
 
-}
-catch(error){
+// }
+// catch(error){
 
-console.error("Error fetching tickets:", error);
-    res.status(500).json({
-      message: "Something went wrong while fetching tickets",
-    });
-}
+// console.error("Error fetching tickets:", error);
+//     res.status(500).json({
+//       message: "Something went wrong while fetching tickets",
+//     });
+// }
 
-}
+// }

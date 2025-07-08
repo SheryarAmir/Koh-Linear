@@ -63,13 +63,16 @@ export const useUpdateTicketStatus = () => {
 
 
 
-export const useGetMyTickets=()=>{
+export const useGetMyTickets=(id:string)=>{
 
-  return useQuery<Ticket[]>({
-    queryKey: ["Tickets"],
-    queryFn:GetMyTickets ,
-    enabled: true, // Only fetch on refetch()
+ const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id: string) => GetMyTickets(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["Tickets"] }) // Refetch tickets
+    },
   })
+  
   
 
 }

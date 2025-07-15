@@ -57,12 +57,12 @@ export const updateTicketStatus = async (id: string, status: string) => {
 
 
 
-export const GetMyTickets=async(id:string)=>{
-  const res=await api.get(`/v1/ticket/getMyIssues/${id}`,{
-    withCredentials: true,
+// export const GetMyTickets=async(id:string)=>{
+//   const res=await api.get(`/v1/ticket/getMyIssues/${id}`,{
+//     withCredentials: true,
 
-  })
+//   })
 
-  console.log(res.data)
-  return res.data.getMyIssuesData
-}
+//   console.log(res.data)
+//   return res.data.getMyIssuesData
+// }
